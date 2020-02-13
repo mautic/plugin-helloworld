@@ -7,13 +7,14 @@ namespace MauticPlugin\HelloWorldBundle\Connection;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
-use Mautic\PluginBundle\Entity\Integration;
 use MauticPlugin\HelloWorldBundle\Integration\HelloWorldIntegration;
 use MauticPlugin\IntegrationsBundle\Auth\Provider\Oauth2TwoLegged\HttpFactory;
 use MauticPlugin\IntegrationsBundle\Exception\IntegrationNotFoundException;
 use MauticPlugin\IntegrationsBundle\Exception\InvalidCredentialsException;
 use MauticPlugin\IntegrationsBundle\Exception\PluginNotConfiguredException;
-use MauticPlugin\IntegrationsBundle\Helper\IntegrationsHelper;
+use MauticPlugin\HelloWorldBundle\Integration\Config;
+use MauticPlugin\HelloWorldBundle\Connection\Config as ConnectionConfig;
+use Monolog\Logger;
 use Psr\Http\Message\ResponseInterface;
 
 class Client
@@ -26,20 +27,21 @@ class Client
     private $httpFactory;
 
     /**
-     * @var IntegrationsHelper
-     */
-    private $helper;
-
-    /**
      * @var Config
      */
-    private $config;
+    private $connectionConfig;
 
-    public function __construct(HttpFactory $httpFactory, IntegrationsHelper $helper, Config $config)
+    /**
+     * @var Logger
+     */
+    private $logger;
+
+    public function __construct(HttpFactory $httpFactory, Config $config, ConnectionConfig $connectionConfig, Logger $logger)
     {
-        $this->httpFactory = $httpFactory;
-        $this->helper      = $helper;
-        $this->config      = $config;
+        $this->httpFactory      = $httpFactory;
+        $this->config           = $config;
+        $this->connectionConfig = $connectionConfig;
+        $this->logger           = $logger;
     }
 
     /**
@@ -57,6 +59,29 @@ class Client
         return $client->request('POST', $url, ['json' => $data]);
     }
 
+    public function getFields(string $object): array
+    {
+        $client = $this->getClient();
+
+        $url      = sprintf('%s/world/%s', $this->apiUrl, $object);
+        $response = $client->request('GET', $url);
+
+        if (200 !== $response->getStatusCode()) {
+            $this->logger->error(
+                sprintf(
+                    '%s: Error fetching %s fields: %s',
+                    HelloWorldIntegration::DISPLAY_NAME,
+                    $object,
+                    $response->getReasonPhrase()
+                )
+            );
+
+            return [];
+        }
+
+        return json_decode($response->getBody()->getContents(), true);
+    }
+
     /**
      * @throws PluginNotConfiguredException
      * @throws InvalidCredentialsException
@@ -72,14 +97,13 @@ class Client
 
     /**
      * @throws PluginNotConfiguredException
-     * @throws IntegrationNotFoundException
      */
     private function getCredentials(): Credentials
     {
-        $apiKeys = $this->getIntegration()->getApiKeys();
-        if (empty($apiKeys['client_id']) || empty($apiKeys['client_secret']) || empty($apiKeys['authorization_url'])) {
+        if (!$this->config->isConfigured()) {
             throw new PluginNotConfiguredException();
         }
+        $apiKeys = $this->config->getApiKeys();
 
         return new Credentials($apiKeys['client_id'], $apiKeys['client_secret']);
     }
@@ -89,18 +113,8 @@ class Client
      */
     private function getConfig(): Config
     {
-        $this->config->setIntegrationConfiguration($this->getIntegration());
+        $this->connectionConfig->setIntegrationConfiguration($this->config->getIntegrationEntity());
 
-        return $this->config;
-    }
-
-    /**
-     * @throws IntegrationNotFoundException
-     */
-    private function getIntegration(): Integration
-    {
-        $integration = $this->helper->getIntegration(HelloWorldIntegration::NAME);
-
-        return $integration->getIntegrationConfiguration();
+        return $this->connectionConfig;
     }
 }
