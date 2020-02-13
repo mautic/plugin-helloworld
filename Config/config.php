@@ -18,5 +18,20 @@ return [
         'other' => [],
         'repositories' => [],
         'sync' => [],
+        'integrations' => [
+            'helloworld.integration' => [
+                'class' => \MauticPlugin\HelloWorldBundle\Integration\HelloWorldIntegration::class,
+                'tags'  => [
+                    'mautic.integration',
+                    'mautic.basic_integration',
+                ],
+            ],
+            'helloworld.integration.configuration' => [
+                'class' => \MauticPlugin\HelloWorldBundle\Integration\Support\ConfigSupport::class,
+                'tags'  => [
+                    'mautic.config_integration',
+                ],
+            ],
+        ],
     ],
 ];

@@ -10,14 +10,8 @@ use MauticPlugin\IntegrationsBundle\Migration\AbstractMigration;
 
 class Version_1_0_1 extends AbstractMigration
 {
-    /**
-     * @var string
-     */
     private $table = 'hello_world';
 
-    /**
-     * {@inheritdoc}
-     */
     protected function isApplicable(Schema $schema): bool
     {
         try {
@@ -27,9 +21,6 @@ class Version_1_0_1 extends AbstractMigration
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function up(): void
     {
         $this->addSql("ALTER TABLE `{$this->concatPrefix($this->table)}` ADD `is_enabled` tinyint(1) 0");
