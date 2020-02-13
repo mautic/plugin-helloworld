@@ -15,7 +15,6 @@ use MauticPlugin\IntegrationsBundle\Exception\PluginNotConfiguredException;
 use MauticPlugin\HelloWorldBundle\Integration\Config;
 use MauticPlugin\HelloWorldBundle\Connection\Config as ConnectionConfig;
 use Monolog\Logger;
-use Psr\Http\Message\ResponseInterface;
 
 class Client
 {
@@ -28,6 +27,11 @@ class Client
 
     /**
      * @var Config
+     */
+    private $config;
+
+    /**
+     * @var ConnectionConfig
      */
     private $connectionConfig;
 
@@ -50,20 +54,68 @@ class Client
      * @throws IntegrationNotFoundException
      * @throws InvalidCredentialsException
      */
-    public function post(string $world, array $data): ResponseInterface
+    public function getList(string $objectName, \DateTimeInterface $startDateTime, \DateTimeInterface $endDateTime, int $page): array
     {
-        $client = $this->getClient();
+        $client  = $this->getClient();
+        $url     = sprintf('%s/%s', $this->apiUrl, $objectName);
 
-        $url = sprintf('%s/%s', $this->apiUrl, $world);
+        // This imaginary API assumes support to query for created or modified items between two timestamps with native pagination
+        $options = [
+            'query' => [
+                'createdOrModifiedSince'  => $startDateTime->getTimestamp(),
+                'createdOrModifiedBefore' => $endDateTime->getTimestamp(),
+                'page'                    => $page,
+            ],
+        ];
 
-        return $client->request('POST', $url, ['json' => $data]);
+        $response = $client->request('GET', $url, $options);
+
+        if (200 !== $response->getStatusCode()) {
+            $this->logger->error(
+                sprintf(
+                    '%s: Error fetching %s objects: %s',
+                    HelloWorldIntegration::DISPLAY_NAME,
+                    $objectName,
+                    $response->getReasonPhrase()
+                )
+            );
+
+            return [];
+        }
+
+        return json_decode($response->getBody()->getContents(), true);
     }
 
-    public function getFields(string $object): array
+    public function upsertList(string $objectName, array $data): array
+    {
+        $client  = $this->getClient();
+        $url     = sprintf('%s/%s', $this->apiUrl, $objectName);
+        $options = ['json' => $data];
+
+        // This imaginary API assumes a native upsert feature that returns respones in a batch format
+        $response = $client->request('POST', $url, $options);
+
+        if (200 !== $response->getStatusCode()) {
+            $this->logger->error(
+                sprintf(
+                    '%s: Error upserting %s objects: %s',
+                    HelloWorldIntegration::DISPLAY_NAME,
+                    $objectName,
+                    $response->getReasonPhrase()
+                )
+            );
+
+            return [];
+        }
+
+        return json_decode($response->getBody()->getContents(), true);
+    }
+
+    public function getFields(string $objectName): array
     {
         $client = $this->getClient();
+        $url      = sprintf('%s/world/%s', $this->apiUrl, $objectName);
 
-        $url      = sprintf('%s/world/%s', $this->apiUrl, $object);
         $response = $client->request('GET', $url);
 
         if (200 !== $response->getStatusCode()) {
@@ -71,7 +123,7 @@ class Client
                 sprintf(
                     '%s: Error fetching %s fields: %s',
                     HelloWorldIntegration::DISPLAY_NAME,
-                    $object,
+                    $objectName,
                     $response->getReasonPhrase()
                 )
             );
@@ -111,7 +163,7 @@ class Client
     /**
      * @throws IntegrationNotFoundException
      */
-    private function getConfig(): Config
+    private function getConfig(): ConnectionConfig
     {
         $this->connectionConfig->setIntegrationConfiguration($this->config->getIntegrationEntity());
 

@@ -7,8 +7,8 @@ namespace MauticPlugin\HelloWorldBundle\Sync\Mapping\Manual;
 
 use MauticPlugin\HelloWorldBundle\Integration\HelloWorldIntegration;
 use MauticPlugin\HelloWorldBundle\Integration\Config;
-use MauticPlugin\HelloWorldBundle\Sync\Field\Field;
-use MauticPlugin\HelloWorldBundle\Sync\Field\FieldRepository;
+use MauticPlugin\HelloWorldBundle\Sync\Mapping\Field\Field;
+use MauticPlugin\HelloWorldBundle\Sync\Mapping\Field\FieldRepository;
 use MauticPlugin\IntegrationsBundle\Exception\InvalidValueException;
 use MauticPlugin\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
 use MauticPlugin\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
@@ -18,7 +18,7 @@ use MauticPlugin\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contac
 class MappingManualFactory
 {
     public const CITIZEN_OBJECT = 'citizen';
-    public const WORLD_OBJECT = 'WORLD';
+    public const WORLD_OBJECT = 'world';
 
     /**
      * @var FieldRepository
