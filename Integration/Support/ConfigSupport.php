@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace MauticPlugin\HelloWorldBundle\Integration\Support;
 
-
 use MauticPlugin\HelloWorldBundle\Form\Type\ConfigAuthType;
 use MauticPlugin\HelloWorldBundle\Form\Type\ConfigFeaturesType;
 use MauticPlugin\HelloWorldBundle\Integration\HelloWorldIntegration;
@@ -22,7 +21,7 @@ class ConfigSupport extends HelloWorldIntegration implements ConfigFormInterface
      * This should include things like API credentials, URLs, etc. All values from this form fields
      * will be encrypted before being persisted.
      *
-     * @link https://symfony.com/doc/2.8/form/create_custom_field_type.html#defining-the-field-type
+     * @see https://symfony.com/doc/2.8/form/create_custom_field_type.html#defining-the-field-type
      *
      * @return string
      */

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace MauticPlugin\HelloWorldBundle\Connection;
 
 use kamermans\OAuth2\Persistence\TokenPersistenceInterface;

@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace MauticPlugin\HelloWorldBundle\Connection;
 
-
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
+use MauticPlugin\HelloWorldBundle\Connection\Config as ConnectionConfig;
+use MauticPlugin\HelloWorldBundle\Integration\Config;
 use MauticPlugin\HelloWorldBundle\Integration\HelloWorldIntegration;
 use MauticPlugin\IntegrationsBundle\Auth\Provider\Oauth2TwoLegged\HttpFactory;
 use MauticPlugin\IntegrationsBundle\Exception\IntegrationNotFoundException;
 use MauticPlugin\IntegrationsBundle\Exception\InvalidCredentialsException;
 use MauticPlugin\IntegrationsBundle\Exception\PluginNotConfiguredException;
-use MauticPlugin\HelloWorldBundle\Integration\Config;
-use MauticPlugin\HelloWorldBundle\Connection\Config as ConnectionConfig;
 use Monolog\Logger;
 
 class Client
@@ -113,7 +112,7 @@ class Client
 
     public function getFields(string $objectName): array
     {
-        $client = $this->getClient();
+        $client   = $this->getClient();
         $url      = sprintf('%s/world/%s', $this->apiUrl, $objectName);
 
         $response = $client->request('GET', $url);

@@ -14,6 +14,7 @@ class HelloWorldIntegration extends BasicIntegration implements BasicInterface
 
     public const NAME         = 'helloworld';
     public const DISPLAY_NAME = 'Hello World';
+
     /**
      * @return string
      */

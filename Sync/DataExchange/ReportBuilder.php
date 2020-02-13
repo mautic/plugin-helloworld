@@ -1,9 +1,8 @@
 <?php
 
-
 namespace MauticPlugin\HelloWorldBundle\Sync\DataExchange;
 
-
+use GuzzleHttp\Exception\GuzzleException;
 use MauticPlugin\HelloWorldBundle\Connection\Client;
 use MauticPlugin\HelloWorldBundle\Integration\Config;
 use MauticPlugin\HelloWorldBundle\Integration\HelloWorldIntegration;
@@ -14,10 +13,9 @@ use MauticPlugin\IntegrationsBundle\Exception\InvalidCredentialsException;
 use MauticPlugin\IntegrationsBundle\Exception\PluginNotConfiguredException;
 use MauticPlugin\IntegrationsBundle\Sync\DAO\Sync\InputOptionsDAO;
 use MauticPlugin\IntegrationsBundle\Sync\DAO\Sync\Report\FieldDAO;
-use MauticPlugin\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
 use MauticPlugin\IntegrationsBundle\Sync\DAO\Sync\Report\ObjectDAO as ReportObjectDAO;
+use MauticPlugin\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
 use MauticPlugin\IntegrationsBundle\Sync\DAO\Sync\Request\ObjectDAO as RequestObjectDAO;
-use GuzzleHttp\Exception\GuzzleException;
 
 class ReportBuilder
 {
@@ -57,9 +55,9 @@ class ReportBuilder
     }
 
     /**
-     * @param int             $page
-     * @param RequestObjectDAO[]     $requestedObjects
-     * @param InputOptionsDAO $options
+     * @param int                $page
+     * @param RequestObjectDAO[] $requestedObjects
+     * @param InputOptionsDAO    $options
      *
      * @throws GuzzleException
      * @throws IntegrationNotFoundException

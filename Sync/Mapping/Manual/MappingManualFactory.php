@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace MauticPlugin\HelloWorldBundle\Sync\Mapping\Manual;
 
-
-use MauticPlugin\HelloWorldBundle\Integration\HelloWorldIntegration;
 use MauticPlugin\HelloWorldBundle\Integration\Config;
+use MauticPlugin\HelloWorldBundle\Integration\HelloWorldIntegration;
 use MauticPlugin\HelloWorldBundle\Sync\Mapping\Field\Field;
 use MauticPlugin\HelloWorldBundle\Sync\Mapping\Field\FieldRepository;
 use MauticPlugin\IntegrationsBundle\Exception\InvalidValueException;
@@ -18,7 +17,7 @@ use MauticPlugin\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contac
 class MappingManualFactory
 {
     public const CITIZEN_OBJECT = 'citizen';
-    public const WORLD_OBJECT = 'world';
+    public const WORLD_OBJECT   = 'world';
 
     /**
      * @var FieldRepository
@@ -97,7 +96,7 @@ class MappingManualFactory
         switch ($objectName) {
             case self::WORLD_OBJECT:
                 return Company::NAME;
-            case self::CITIZEN_OBJECT;
+            case self::CITIZEN_OBJECT:
                 return Contact::NAME;
         }
 

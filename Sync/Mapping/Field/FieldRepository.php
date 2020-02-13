@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace MauticPlugin\HelloWorldBundle\Sync\Mapping\Field;
 
-
 use Mautic\CoreBundle\Helper\CacheStorageHelper;
 use MauticPlugin\HelloWorldBundle\Connection\Client;
 
@@ -27,7 +26,7 @@ class FieldRepository
     }
 
     /**
-     * Used by the sync engine so that it does not have to fetch the fields live with each object sync
+     * Used by the sync engine so that it does not have to fetch the fields live with each object sync.
      *
      * @return Field[]
      */
@@ -48,7 +47,7 @@ class FieldRepository
     }
 
     /**
-     * Fetch the fields fresh from the API
+     * Fetch the fields fresh from the API.
      */
     public function getFieldsFromApi(string $object): array
     {

@@ -46,7 +46,7 @@ class Config
     {
         $apiKeys = $this->getApiKeys();
 
-        return (!empty($apiKeys['client_id']) && !empty($apiKeys['client_secret']));
+        return !empty($apiKeys['client_id']) && !empty($apiKeys['client_secret']);
     }
 
     /**

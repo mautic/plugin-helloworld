@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace MauticPlugin\HelloWorldBundle\Form\Type;
 
-
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -15,7 +14,7 @@ class ConfigAuthType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $clientSecret = null;
+        $clientSecret   = null;
         $configProvider = $options['integration'];
         if ($configProvider->getIntegrationConfiguration() && $configProvider->getIntegrationConfiguration()->getApiKeys()) {
             $data         = $configProvider->getIntegrationConfiguration()->getApiKeys();
@@ -49,7 +48,7 @@ class ConfigAuthType extends AbstractType
             ]
         );
     }
-    
+
     public function configureOptions(OptionsResolver $optionsResolver): void
     {
         $optionsResolver->setDefaults(

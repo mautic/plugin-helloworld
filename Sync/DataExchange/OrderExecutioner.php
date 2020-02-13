@@ -1,8 +1,6 @@
 <?php
 
-
 namespace MauticPlugin\HelloWorldBundle\Sync\DataExchange;
-
 
 use MauticPlugin\HelloWorldBundle\Connection\Client;
 use MauticPlugin\HelloWorldBundle\Integration\Config;
@@ -122,7 +120,7 @@ class OrderExecutioner
     {
         foreach ($response as $itemResponse) {
             // Set the Mautic ID passed through back to us through the API to find the associated ObjectChangeDAO
-            $mauticId = $itemResponse['metadata']['mautic_id'];
+            $mauticId        = $itemResponse['metadata']['mautic_id'];
             $objectChangeDAO = $this->mappedObjects[$mauticId];
 
             // The order should be updated with the results of the sync by passing in the ObjectChangeDAO to appropriate method

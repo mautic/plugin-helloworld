@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace MauticPlugin\HelloWorldBundle\Sync\DataExchange;
 
-
 use MauticPlugin\IntegrationsBundle\Sync\DAO\Sync\Order\OrderDAO;
 use MauticPlugin\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
 use MauticPlugin\IntegrationsBundle\Sync\DAO\Sync\Request\RequestDAO;

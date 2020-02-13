@@ -1,8 +1,6 @@
 <?php
 
-
 namespace MauticPlugin\HelloWorldBundle\Sync\DataExchange;
-
 
 use MauticPlugin\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
 use MauticPlugin\IntegrationsBundle\Sync\ValueNormalizer\ValueNormalizerInterface;

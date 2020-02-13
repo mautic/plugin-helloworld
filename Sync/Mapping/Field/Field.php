@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace MauticPlugin\HelloWorldBundle\Sync\Mapping\Field;
 
-
 class Field
 {
     private $name;

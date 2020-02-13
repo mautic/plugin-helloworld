@@ -8,5 +8,4 @@ use Mautic\CoreBundle\Entity\CommonRepository;
 
 class WorldRepository extends CommonRepository
 {
-
 }
