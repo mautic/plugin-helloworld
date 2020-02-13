@@ -45,9 +45,9 @@ return [
                     'helloworld.connection.client',
                 ],
             ],
-            // Instructions to the sync engine for which objects and fields to sync and direction of data flow
-            'helloworld.sync.mapping_manual' => [
-                'class' => \MauticPlugin\HelloWorldBundle\Sync\Mapping\Manual\MappingManual::class,
+            // Creates the instructions to the sync engine for which objects and fields to sync and direction of data flow
+            'helloworld.sync.mapping_manual.factory' => [
+                'class' => \MauticPlugin\HelloWorldBundle\Sync\Mapping\Manual\MappingManualFactory::class,
                 'arguments' => [
                     'helloworld.sync.repository.fields',
                     'helloworld.config',

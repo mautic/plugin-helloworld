@@ -15,7 +15,7 @@ use MauticPlugin\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
 use MauticPlugin\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Company;
 use MauticPlugin\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
 
-class MappingManual
+class MappingManualFactory
 {
     public const CITIZEN_OBJECT = 'citizen';
     public const WORLD_OBJECT = 'WORLD';
