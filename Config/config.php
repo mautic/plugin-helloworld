@@ -15,7 +15,22 @@ return [
         'events' => [],
         'forms' => [],
         'helpers' => [],
-        'other' => [],
+        'other' => [
+            'helloworld.connection.config' => [
+                'class'     => \MauticPlugin\HelloWorldBundle\Connection\Config::class,
+                'arguments' => [
+                    'mautic.integrations.auth_provider.token_persistence_factory',
+                ],
+            ],
+            'helloworld.connection.client' => [
+                'class'     => \MauticPlugin\HelloWorldBundle\Connection\Client::class,
+                'arguments' => [
+                    'mautic.integrations.auth_provider.oauth2twolegged',
+                    'mautic.integrations.helper',
+                    'helloworld.connection.config',
+                ],
+            ],
+        ],
         'repositories' => [],
         'sync' => [],
         'integrations' => [
