@@ -6,12 +6,14 @@ namespace MauticPlugin\HelloWorldBundle\Integration\Support;
 
 
 use MauticPlugin\HelloWorldBundle\Form\Type\ConfigAuthType;
+use MauticPlugin\HelloWorldBundle\Form\Type\ConfigFeaturesType;
 use MauticPlugin\HelloWorldBundle\Integration\HelloWorldIntegration;
 use MauticPlugin\IntegrationsBundle\Integration\DefaultConfigFormTrait;
 use MauticPlugin\IntegrationsBundle\Integration\Interfaces\ConfigFormAuthInterface;
+use MauticPlugin\IntegrationsBundle\Integration\Interfaces\ConfigFormFeatureSettingsInterface;
 use MauticPlugin\IntegrationsBundle\Integration\Interfaces\ConfigFormInterface;
 
-class ConfigSupport extends HelloWorldIntegration implements ConfigFormInterface, ConfigFormAuthInterface
+class ConfigSupport extends HelloWorldIntegration implements ConfigFormInterface, ConfigFormAuthInterface, ConfigFormFeatureSettingsInterface
 {
     use DefaultConfigFormTrait;
 
@@ -27,5 +29,10 @@ class ConfigSupport extends HelloWorldIntegration implements ConfigFormInterface
     public function getAuthConfigFormName(): string
     {
         return ConfigAuthType::class;
+    }
+
+    public function getFeatureSettingsConfigFormName(): string
+    {
+        return ConfigFeaturesType::class;
     }
 }
