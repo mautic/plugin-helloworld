@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MauticPlugin\HelloWorldBundle\Tests\Unit\Sync\DataExchange;
 
 use MauticPlugin\HelloWorldBundle\Sync\DataExchange\ValueNormalizer;
@@ -7,7 +9,7 @@ use MauticPlugin\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
 
 class ValueNormalizerTest extends \PHPUnit_Framework_TestCase
 {
-    public function testBooleanConvertedForIntegration()
+    public function testBooleanConvertedForIntegration(): void
     {
         $normalizer      = new ValueNormalizer();
         $value           = new NormalizedValueDAO(NormalizedValueDAO::BOOLEAN_TYPE, 1);
@@ -16,7 +18,7 @@ class ValueNormalizerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(true, $normalizedValue);
     }
 
-    public function testBooleanConvertedForMautic()
+    public function testBooleanConvertedForMautic(): void
     {
         $normalizer      = new ValueNormalizer();
         $normalizedValue = $normalizer->normalizeForMautic(true, ValueNormalizer::BOOLEAN_TYPE);

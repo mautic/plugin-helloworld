@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MauticPlugin\HelloWorldBundle\Tests\Unit\Integration;
 
 use Mautic\PluginBundle\Entity\Integration;
@@ -28,7 +30,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     private $config;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->integration        = $this->createMock(Integration::class);
         $integrationInterface     = $this->createMock(IntegrationInterface::class);
@@ -46,7 +48,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \MauticPlugin\HelloWorldBundle\Integration\Config::getIntegrationEntity
      */
-    public function testIsPublished()
+    public function testIsPublished(): void
     {
         $this->integration->method('getIsPublished')
             ->willReturn(true);
@@ -57,7 +59,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \MauticPlugin\HelloWorldBundle\Integration\Config::getIntegrationEntity
      */
-    public function testIsUnPublished()
+    public function testIsUnPublished(): void
     {
         $this->integration->method('getIsPublished')
             ->willReturn(false);
@@ -68,7 +70,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \MauticPlugin\HelloWorldBundle\Integration\Config::getApiKeys
      */
-    public function testIsConfigured()
+    public function testIsConfigured(): void
     {
         $this->integration->method('getApiKeys')
             ->willReturn(
@@ -84,7 +86,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \MauticPlugin\HelloWorldBundle\Integration\Config::getApiKeys
      */
-    public function testNotConfiguredIfClientIsMissing()
+    public function testNotConfiguredIfClientIsMissing(): void
     {
         $this->integration->method('getApiKeys')
             ->willReturn(
@@ -100,7 +102,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \MauticPlugin\HelloWorldBundle\Integration\Config::getApiKeys
      */
-    public function testNotConfiguredIfSecretIsMissing()
+    public function testNotConfiguredIfSecretIsMissing(): void
     {
         $this->integration->method('getApiKeys')
             ->willReturn(
@@ -116,7 +118,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \MauticPlugin\HelloWorldBundle\Integration\Config::getApiKeys
      */
-    public function testIsAuthorized()
+    public function testIsAuthorized(): void
     {
         $this->integration->method('getApiKeys')
             ->willReturn(
@@ -133,7 +135,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \MauticPlugin\HelloWorldBundle\Integration\Config::getApiKeys
      */
-    public function testIsNotAuthorizedIfRefreshTokenIsMissing()
+    public function testIsNotAuthorizedIfRefreshTokenIsMissing(): void
     {
         $this->integration->method('getApiKeys')
             ->willReturn(
@@ -147,7 +149,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->config->isAuthorized());
     }
 
-    public function testGetFeatureSettings()
+    public function testGetFeatureSettings(): void
     {
         $this->integration->method('getFeatureSettings')
             ->willReturn(
@@ -159,7 +161,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(['foo' => 'bar'], $this->config->getFeatureSettings());
     }
 
-    public function testGetFieldDirection()
+    public function testGetFieldDirection(): void
     {
         $this->integration->method('getFeatureSettings')
             ->willReturn(
@@ -179,7 +181,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(ObjectMappingDAO::SYNC_TO_MAUTIC, $this->config->getFieldDirection(MappingManualFactory::CITIZEN_OBJECT, 'firstname'));
     }
 
-    public function testGetFieldThrowsInvalidValueExceptionIfFieldNotFound()
+    public function testGetFieldThrowsInvalidValueExceptionIfFieldNotFound(): void
     {
         $this->expectException(InvalidValueException::class);
         $this->integration->method('getFeatureSettings')
@@ -200,7 +202,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(ObjectMappingDAO::SYNC_TO_MAUTIC, $this->config->getFieldDirection(MappingManualFactory::CITIZEN_OBJECT, 'lastname'));
     }
 
-    public function testGetMappedFields()
+    public function testGetMappedFields(): void
     {
         $this->integration->method('getFeatureSettings')
             ->willReturn(

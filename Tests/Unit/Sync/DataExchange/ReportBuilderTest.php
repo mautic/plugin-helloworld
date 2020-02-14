@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MauticPlugin\HelloWorldBundle\Tests\Unit\Sync\DataExchange;
 
 use Mautic\CoreBundle\Helper\CacheStorageHelper;
@@ -39,7 +41,7 @@ class ReportBuilderTest extends \PHPUnit_Framework_TestCase
      */
     private $reportBuilder;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->client               = $this->createMock(Client::class);
         $this->config               = $this->createMock(Config::class);
@@ -48,7 +50,7 @@ class ReportBuilderTest extends \PHPUnit_Framework_TestCase
         $this->reportBuilder        = new ReportBuilder($this->client, $this->config, $this->fieldRepository);
     }
 
-    public function testReportIsBuilt()
+    public function testReportIsBuilt(): void
     {
         $citizenFields = json_decode(file_get_contents(__DIR__.'/../../Connection/json/citizens_fields.json'), true);
         $worldFields   = json_decode(file_get_contents(__DIR__.'/../../Connection/json/worlds_fields.json'), true);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MauticPlugin\HelloWorldBundle\Tests\Unit\Connection;
 
 use GuzzleHttp\Client as GuzzleClient;
@@ -40,7 +42,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     private $client;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->httpFactory = $this->createMock(HttpFactory::class);
         $this->config      = $this->createMock(Config::class);
@@ -57,7 +59,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->client           = new Client($this->httpFactory, $this->config, $this->connectionConfig, $this->logger);
     }
 
-    public function testGetRequestIsPreparedAsExpectedAndObjectsAreReturned()
+    public function testGetRequestIsPreparedAsExpectedAndObjectsAreReturned(): void
     {
         $object        = 'citizen';
         $startDateTime = new \DateTime('-5 days');
@@ -110,7 +112,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($results, $returnedResults);
     }
 
-    public function testGetRequestLogsErrorIfResponseCodeIsNot200()
+    public function testGetRequestLogsErrorIfResponseCodeIsNot200(): void
     {
         $object        = 'citizen';
         $startDateTime = new \DateTime('-5 days');
@@ -157,7 +159,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals([], $returnedResults);
     }
 
-    public function testGetFieldsRequestIsPreparedAsExpectedAndFieldsAreReturned()
+    public function testGetFieldsRequestIsPreparedAsExpectedAndFieldsAreReturned(): void
     {
         $object  = 'citizen';
         $results = json_decode(file_get_contents(__DIR__.'/json/citizens_fields.json'), true);
@@ -204,7 +206,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($results, $returnedResults);
     }
 
-    public function testGetFieldsLogsErrorIfResponseCodeIsNot200()
+    public function testGetFieldsLogsErrorIfResponseCodeIsNot200(): void
     {
         $object = 'citizen';
 
@@ -245,7 +247,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals([], $returnedResults);
     }
 
-    public function testUpsertRequestIsPreparedAsExpectedAndResponseReturned()
+    public function testUpsertRequestIsPreparedAsExpectedAndResponseReturned(): void
     {
         $object   = 'citizen';
         $results  = json_decode(file_get_contents(__DIR__.'/json/citizens_upsert.json'), true);
@@ -293,7 +295,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($results, $returnedResults);
     }
 
-    public function testUpsertLogsErrorIfResponseIsNot200()
+    public function testUpsertLogsErrorIfResponseIsNot200(): void
     {
         $object   = 'citizen';
         $citizens = json_decode(file_get_contents(__DIR__.'/json/citizens.json'), true);
@@ -335,7 +337,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals([], $returnedResults);
     }
 
-    public function testPluginNotConfiguredExceptionIsThrownIfNotConfigured()
+    public function testPluginNotConfiguredExceptionIsThrownIfNotConfigured(): void
     {
         $this->expectException(PluginNotConfiguredException::class);
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MauticPlugin\HelloWorldBundle\Tests\Unit\Connection;
 
 use Mautic\PluginBundle\Entity\Integration;
@@ -14,12 +16,12 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     private $tokenPersistanceFactory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->tokenPersistanceFactory = $this->createMock(TokenPersistenceFactory::class);
     }
 
-    public function testTokenPersistanceInterfaceIsReturned()
+    public function testTokenPersistanceInterfaceIsReturned(): void
     {
         $integrationConfiguration = new Integration();
         $tokenPersistance         = $this->createMock(TokenPersistence::class);

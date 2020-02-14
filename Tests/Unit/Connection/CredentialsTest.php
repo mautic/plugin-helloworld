@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MauticPlugin\HelloWorldBundle\Tests\Unit\Connection;
 
 use MauticPlugin\HelloWorldBundle\Connection\Credentials;
 
 class CredentialsTest extends \PHPUnit_Framework_TestCase
 {
-    public function testGetters()
+    public function testGetters(): void
     {
         $clientId     = 'foo';
         $clientSecret = 'bar';

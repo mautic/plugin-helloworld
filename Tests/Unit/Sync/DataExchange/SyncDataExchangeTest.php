@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MauticPlugin\HelloWorldBundle\Tests\Unit\Sync\DataExchange;
 
 use MauticPlugin\HelloWorldBundle\Sync\DataExchange\OrderExecutioner;
@@ -27,14 +29,14 @@ class SyncDataExchangeTest extends \PHPUnit_Framework_TestCase
      */
     private $syncDataExchange;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->reportBuilder    = $this->createMock(ReportBuilder::class);
         $this->orderExecutioner = $this->createMock(OrderExecutioner::class);
         $this->syncDataExchange = new SyncDataExchange($this->reportBuilder, $this->orderExecutioner);
     }
 
-    public function testGetSyncReport()
+    public function testGetSyncReport(): void
     {
         $requestDAO = $this->createMock(RequestDAO::class);
         $requestDAO->expects($this->once())
@@ -61,7 +63,7 @@ class SyncDataExchangeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($reportDAO, $returnedReportDAO);
     }
 
-    public function testExecuteSyncOrder()
+    public function testExecuteSyncOrder(): void
     {
         $syncOrderDAO = $this->createMock(OrderDAO::class);
 

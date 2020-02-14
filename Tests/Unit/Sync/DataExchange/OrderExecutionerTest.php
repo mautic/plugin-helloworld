@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MauticPlugin\HelloWorldBundle\Tests\Unit\Sync\DataExchange;
 
 use MauticPlugin\HelloWorldBundle\Connection\Client;
@@ -156,12 +158,12 @@ class OrderExecutionerTest extends \PHPUnit_Framework_TestCase
         ],
     ];
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->client = $this->createMock(Client::class);
     }
 
-    public function testOrderIsExecuted()
+    public function testOrderIsExecuted(): void
     {
         $citizenPayload  = json_decode(file_get_contents(__DIR__.'/../../Connection/json/citizens_upsert.json'), true);
         $citizenResponse = json_decode(file_get_contents(__DIR__.'/../../Connection/json/citizens_upsert_response.json'), true);

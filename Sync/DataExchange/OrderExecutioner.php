@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MauticPlugin\HelloWorldBundle\Sync\DataExchange;
 
 use MauticPlugin\HelloWorldBundle\Connection\Client;
-use MauticPlugin\HelloWorldBundle\Integration\Config;
 use MauticPlugin\HelloWorldBundle\Sync\Mapping\Manual\MappingManualFactory;
 use MauticPlugin\IntegrationsBundle\Sync\DAO\Sync\Order\FieldDAO;
 use MauticPlugin\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
@@ -40,7 +41,7 @@ class OrderExecutioner
         $this->valueNormalizer = new ValueNormalizer();
     }
 
-    public function execute(OrderDAO $orderDAO)
+    public function execute(OrderDAO $orderDAO): void
     {
         $this->order = $orderDAO;
 
@@ -126,6 +127,7 @@ class OrderExecutioner
                 case 200:
                     // The object was updated so mark the last sync date
                     $this->order->updateLastSyncDate($objectChangeDAO);
+
                     break;
                 case 201:
                     // The object was created so map the integration object to the Mautic object
@@ -134,20 +136,24 @@ class OrderExecutioner
                         $objectChangeDAO->getObject(),
                         $itemResponse['id']
                     );
+
                     break;
                 case 400:
                     // Validation failed or some other transient error. Note that this will not automatically retry the sync later
                     // unless $this->order->retrySyncLater() is used. See 503.
                     $this->order->noteObjectSyncIssue($objectChangeDAO, $itemResponse['message']);
+
                     break;
                 case 404:
                     // It's assumed this means that the object no longer exists in the integration and thus mark it as deleted
                     // so that Mautic does not continue to attempt syncing.
                     $this->order->deleteObject($objectChangeDAO);
+
                     break;
                 case 503:
                     // There was a temporary issue communicating with the server so retry this one again with the next sync.
                     $this->order->retrySyncLater($objectChangeDAO);
+
                     break;
             }
 

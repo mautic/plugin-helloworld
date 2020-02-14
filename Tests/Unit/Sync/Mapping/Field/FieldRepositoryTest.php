@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MauticPlugin\HelloWorldBundle\Tests\Unit\Sync\Mapping\Field;
 
 use Mautic\CoreBundle\Helper\CacheStorageHelper;
@@ -25,14 +27,14 @@ class FieldRepositoryTest extends \PHPUnit_Framework_TestCase
      */
     private $cacheStorageProvider;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->client               = $this->createMock(Client::class);
         $this->cacheStorageProvider = $this->createMock(CacheStorageHelper::class);
         $this->fieldRepository      = new FieldRepository($this->cacheStorageProvider, $this->client);
     }
 
-    public function testFieldsAreFetchedFromCache()
+    public function testFieldsAreFetchedFromCache(): void
     {
         $citizenFields = json_decode(file_get_contents(__DIR__.'/../../../Connection/json/citizens_fields.json'), true);
 
@@ -47,7 +49,7 @@ class FieldRepositoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(Field::class, $fields['id']);
     }
 
-    public function testFieldsAreFetchedLiveIfCacheIsNotAvailable()
+    public function testFieldsAreFetchedLiveIfCacheIsNotAvailable(): void
     {
         $citizenFields = json_decode(file_get_contents(__DIR__.'/../../../Connection/json/citizens_fields.json'), true);
 
@@ -67,7 +69,7 @@ class FieldRepositoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(Field::class, $fields['id']);
     }
 
-    public function testGettingRequiredFieldsForMapping()
+    public function testGettingRequiredFieldsForMapping(): void
     {
         $citizenFields = json_decode(file_get_contents(__DIR__.'/../../../Connection/json/citizens_fields.json'), true);
 
@@ -86,7 +88,7 @@ class FieldRepositoryTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(isset($fields['lastname']));
     }
 
-    public function testGettingOptionalFieldsForMapping()
+    public function testGettingOptionalFieldsForMapping(): void
     {
         $citizenFields = json_decode(file_get_contents(__DIR__.'/../../../Connection/json/citizens_fields.json'), true);
 

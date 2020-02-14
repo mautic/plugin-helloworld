@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class ConfigFeaturesType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
             'default_world',

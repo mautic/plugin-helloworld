@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MauticPlugin\HelloWorldBundle\Tests\Unit\Sync\Mapping\Field;
 
 use MauticPlugin\HelloWorldBundle\Sync\Mapping\Field\Field;
 
 class FieldTest extends \PHPUnit_Framework_TestCase
 {
-    public function testGetters()
+    public function testGetters(): void
     {
         $fieldArray = [
             'name'      => 'email',

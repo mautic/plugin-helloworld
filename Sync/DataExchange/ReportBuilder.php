@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MauticPlugin\HelloWorldBundle\Sync\DataExchange;
 
 use GuzzleHttp\Exception\GuzzleException;

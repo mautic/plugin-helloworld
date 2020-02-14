@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MauticPlugin\HelloWorldBundle\Tests\Unit\Sync\Mapping\Manual;
 
 use Mautic\CoreBundle\Helper\CacheStorageHelper;
@@ -37,7 +39,7 @@ class MappingManualFactoryTest extends \PHPUnit_Framework_TestCase
      */
     private $mappingManualFactory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->cacheStorageProvider = $this->createMock(CacheStorageHelper::class);
         $this->client               = $this->createMock(Client::class);
@@ -46,7 +48,7 @@ class MappingManualFactoryTest extends \PHPUnit_Framework_TestCase
         $this->mappingManualFactory = new MappingManualFactory($this->fieldRepository, $this->config);
     }
 
-    public function testMappingManualIsCompiledAndReturned()
+    public function testMappingManualIsCompiledAndReturned(): void
     {
         $citizenFields = json_decode(file_get_contents(__DIR__.'/../../../Connection/json/citizens_fields.json'), true);
         $worldFields   = json_decode(file_get_contents(__DIR__.'/../../../Connection/json/worlds_fields.json'), true);

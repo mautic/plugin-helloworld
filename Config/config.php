@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'name'        => 'Hello World',
     'description' => 'Example Mautic 2 plugin built on the IntegrationsBundle plugin',
