@@ -12,13 +12,14 @@ use MauticPlugin\HelloWorldBundle\Sync\Mapping\Manual\MappingManualFactory;
 use MauticPlugin\IntegrationsBundle\Integration\DefaultConfigFormTrait;
 use MauticPlugin\IntegrationsBundle\Integration\Interfaces\ConfigFormAuthInterface;
 use MauticPlugin\IntegrationsBundle\Integration\Interfaces\ConfigFormFeatureSettingsInterface;
+use MauticPlugin\IntegrationsBundle\Integration\Interfaces\ConfigFormFeaturesInterface;
 use MauticPlugin\IntegrationsBundle\Integration\Interfaces\ConfigFormInterface;
 use MauticPlugin\IntegrationsBundle\Integration\Interfaces\ConfigFormSyncInterface;
 use MauticPlugin\IntegrationsBundle\Mapping\MappedFieldInfoInterface;
 use MauticPlugin\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Company;
 use MauticPlugin\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
 
-class ConfigSupport extends HelloWorldIntegration implements ConfigFormInterface, ConfigFormAuthInterface, ConfigFormFeatureSettingsInterface, ConfigFormSyncInterface
+class ConfigSupport extends HelloWorldIntegration implements ConfigFormInterface, ConfigFormAuthInterface, ConfigFormFeatureSettingsInterface, ConfigFormSyncInterface, ConfigFormFeaturesInterface
 {
     use DefaultConfigFormTrait;
 
@@ -99,5 +100,12 @@ class ConfigSupport extends HelloWorldIntegration implements ConfigFormInterface
             $requiredFields,
             $optionalFields
         );
+    }
+
+    public function getSupportedFeatures(): array
+    {
+        return [
+            ConfigFormFeaturesInterface::FEATURE_SYNC => 'mautic.integration.feature.sync',
+        ];
     }
 }
