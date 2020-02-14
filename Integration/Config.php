@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace MauticPlugin\HelloWorldBundle\Integration;
 
-use Mautic\PluginBundle\Entity\Integration;
 use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
 use Mautic\IntegrationsBundle\Exception\InvalidValueException;
 use Mautic\IntegrationsBundle\Helper\IntegrationsHelper;
+use Mautic\PluginBundle\Entity\Integration;
 
 class Config
 {

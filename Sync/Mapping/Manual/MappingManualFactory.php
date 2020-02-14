@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace MauticPlugin\HelloWorldBundle\Sync\Mapping\Manual;
 
-use MauticPlugin\HelloWorldBundle\Integration\Config;
-use MauticPlugin\HelloWorldBundle\Integration\HelloWorldIntegration;
-use MauticPlugin\HelloWorldBundle\Sync\Mapping\Field\Field;
-use MauticPlugin\HelloWorldBundle\Sync\Mapping\Field\FieldRepository;
 use Mautic\IntegrationsBundle\Exception\InvalidValueException;
 use Mautic\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
 use Mautic\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
 use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Company;
 use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
+use MauticPlugin\HelloWorldBundle\Integration\Config;
+use MauticPlugin\HelloWorldBundle\Integration\HelloWorldIntegration;
+use MauticPlugin\HelloWorldBundle\Sync\Mapping\Field\Field;
+use MauticPlugin\HelloWorldBundle\Sync\Mapping\Field\FieldRepository;
 
 class MappingManualFactory
 {

@@ -4,11 +4,6 @@ declare(strict_types=1);
 
 namespace MauticPlugin\HelloWorldBundle\Integration\Support;
 
-use MauticPlugin\HelloWorldBundle\Form\Type\ConfigAuthType;
-use MauticPlugin\HelloWorldBundle\Form\Type\ConfigFeaturesType;
-use MauticPlugin\HelloWorldBundle\Integration\HelloWorldIntegration;
-use MauticPlugin\HelloWorldBundle\Sync\Mapping\Field\FieldRepository;
-use MauticPlugin\HelloWorldBundle\Sync\Mapping\Manual\MappingManualFactory;
 use Mautic\IntegrationsBundle\Integration\DefaultConfigFormTrait;
 use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormAuthInterface;
 use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormFeatureSettingsInterface;
@@ -18,6 +13,11 @@ use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormSyncInterface;
 use Mautic\IntegrationsBundle\Mapping\MappedFieldInfoInterface;
 use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Company;
 use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
+use MauticPlugin\HelloWorldBundle\Form\Type\ConfigAuthType;
+use MauticPlugin\HelloWorldBundle\Form\Type\ConfigFeaturesType;
+use MauticPlugin\HelloWorldBundle\Integration\HelloWorldIntegration;
+use MauticPlugin\HelloWorldBundle\Sync\Mapping\Field\FieldRepository;
+use MauticPlugin\HelloWorldBundle\Sync\Mapping\Manual\MappingManualFactory;
 
 class ConfigSupport extends HelloWorldIntegration implements ConfigFormInterface, ConfigFormAuthInterface, ConfigFormFeatureSettingsInterface, ConfigFormSyncInterface, ConfigFormFeaturesInterface
 {

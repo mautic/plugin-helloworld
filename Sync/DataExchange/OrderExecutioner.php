@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace MauticPlugin\HelloWorldBundle\Sync\DataExchange;
 
-use MauticPlugin\HelloWorldBundle\Connection\Client;
-use MauticPlugin\HelloWorldBundle\Sync\Mapping\Manual\MappingManualFactory;
 use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\FieldDAO;
 use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
 use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\OrderDAO;
+use MauticPlugin\HelloWorldBundle\Connection\Client;
+use MauticPlugin\HelloWorldBundle\Sync\Mapping\Manual\MappingManualFactory;
 
 class OrderExecutioner
 {

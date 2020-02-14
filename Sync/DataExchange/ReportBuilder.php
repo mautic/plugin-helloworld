@@ -5,11 +5,6 @@ declare(strict_types=1);
 namespace MauticPlugin\HelloWorldBundle\Sync\DataExchange;
 
 use GuzzleHttp\Exception\GuzzleException;
-use MauticPlugin\HelloWorldBundle\Connection\Client;
-use MauticPlugin\HelloWorldBundle\Integration\Config;
-use MauticPlugin\HelloWorldBundle\Integration\HelloWorldIntegration;
-use MauticPlugin\HelloWorldBundle\Sync\Mapping\Field\Field;
-use MauticPlugin\HelloWorldBundle\Sync\Mapping\Field\FieldRepository;
 use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
 use Mautic\IntegrationsBundle\Exception\InvalidCredentialsException;
 use Mautic\IntegrationsBundle\Exception\PluginNotConfiguredException;
@@ -18,6 +13,11 @@ use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\FieldDAO;
 use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\ObjectDAO as ReportObjectDAO;
 use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
 use Mautic\IntegrationsBundle\Sync\DAO\Sync\Request\ObjectDAO as RequestObjectDAO;
+use MauticPlugin\HelloWorldBundle\Connection\Client;
+use MauticPlugin\HelloWorldBundle\Integration\Config;
+use MauticPlugin\HelloWorldBundle\Integration\HelloWorldIntegration;
+use MauticPlugin\HelloWorldBundle\Sync\Mapping\Field\Field;
+use MauticPlugin\HelloWorldBundle\Sync\Mapping\Field\FieldRepository;
 
 class ReportBuilder
 {

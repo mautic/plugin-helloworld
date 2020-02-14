@@ -6,13 +6,13 @@ namespace MauticPlugin\HelloWorldBundle\Connection;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
-use MauticPlugin\HelloWorldBundle\Connection\Config as ConnectionConfig;
-use MauticPlugin\HelloWorldBundle\Integration\Config;
-use MauticPlugin\HelloWorldBundle\Integration\HelloWorldIntegration;
 use Mautic\IntegrationsBundle\Auth\Provider\Oauth2TwoLegged\HttpFactory;
 use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
 use Mautic\IntegrationsBundle\Exception\InvalidCredentialsException;
 use Mautic\IntegrationsBundle\Exception\PluginNotConfiguredException;
+use MauticPlugin\HelloWorldBundle\Connection\Config as ConnectionConfig;
+use MauticPlugin\HelloWorldBundle\Integration\Config;
+use MauticPlugin\HelloWorldBundle\Integration\HelloWorldIntegration;
 use Monolog\Logger;
 
 class Client
