@@ -41,7 +41,7 @@ class FieldRepositoryTest extends \PHPUnit_Framework_TestCase
             ->with('helloworld.fields.'.MappingManualFactory::CITIZEN_OBJECT)
             ->willReturn($citizenFields);
 
-        $fields = $this->fieldRepository->getFieldsFromCache(MappingManualFactory::CITIZEN_OBJECT);
+        $fields = $this->fieldRepository->getFields(MappingManualFactory::CITIZEN_OBJECT);
         $this->assertCount(6, $fields);
 
         $this->assertInstanceOf(Field::class, $fields['id']);
@@ -61,13 +61,13 @@ class FieldRepositoryTest extends \PHPUnit_Framework_TestCase
             ->with(MappingManualFactory::CITIZEN_OBJECT)
             ->willReturn($citizenFields);
 
-        $fields = $this->fieldRepository->getFieldsFromCache(MappingManualFactory::CITIZEN_OBJECT);
+        $fields = $this->fieldRepository->getFields(MappingManualFactory::CITIZEN_OBJECT);
         $this->assertCount(6, $fields);
 
         $this->assertInstanceOf(Field::class, $fields['id']);
     }
 
-    public function testFieldsAreFetchedFromApi()
+    public function testGettingRequiredFieldsForMapping()
     {
         $citizenFields = json_decode(file_get_contents(__DIR__.'/../../../Connection/json/citizens_fields.json'), true);
 
@@ -79,9 +79,29 @@ class FieldRepositoryTest extends \PHPUnit_Framework_TestCase
             ->with(MappingManualFactory::CITIZEN_OBJECT)
             ->willReturn($citizenFields);
 
-        $fields = $this->fieldRepository->getFieldsFromApi(MappingManualFactory::CITIZEN_OBJECT);
-        $this->assertCount(6, $fields);
+        $fields = $this->fieldRepository->getRequiredFieldsForMapping(MappingManualFactory::CITIZEN_OBJECT);
+        $this->assertCount(2, $fields);
 
-        $this->assertInstanceOf(Field::class, $fields['id']);
+        $this->assertTrue(isset($fields['email']));
+        $this->assertTrue(isset($fields['lastname']));
+    }
+
+    public function testGettingOptionalFieldsForMapping()
+    {
+        $citizenFields = json_decode(file_get_contents(__DIR__.'/../../../Connection/json/citizens_fields.json'), true);
+
+        $this->cacheStorageProvider->expects($this->never())
+            ->method('get');
+
+        $this->client->expects($this->once())
+            ->method('getFields')
+            ->with(MappingManualFactory::CITIZEN_OBJECT)
+            ->willReturn($citizenFields);
+
+        $fields = $this->fieldRepository->getOptionalFieldsForMapping(MappingManualFactory::CITIZEN_OBJECT);
+        $this->assertCount(4, $fields);
+
+        $this->assertTrue(!isset($fields['email']));
+        $this->assertTrue(!isset($fields['lastname']));
     }
 }

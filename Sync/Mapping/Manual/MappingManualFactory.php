@@ -59,7 +59,7 @@ class MappingManualFactory
     private function configureObjectMapping(string $objectName): void
     {
         // Get a list of available fields from the integration
-        $fields = $this->fieldRepository->getFieldsFromCache($objectName);
+        $fields = $this->fieldRepository->getFields($objectName);
 
         // Get a list of fields mapped by the user
         $mappedFields = $this->config->getMappedFields($objectName);

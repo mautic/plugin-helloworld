@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace MauticPlugin\HelloWorldBundle\Sync\Mapping\Field;
 
+use MauticPlugin\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
+
 class Field
 {
     private $name;
@@ -44,5 +46,10 @@ class Field
     public function isWritable(): bool
     {
         return $this->isWritable;
+    }
+
+    public function getSupportedSyncDirection(): string
+    {
+        return $this->isWritable ? ObjectMappingDAO::SYNC_BIDIRECTIONALLY : ObjectMappingDAO::SYNC_TO_MAUTIC;
     }
 }

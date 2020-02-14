@@ -92,7 +92,7 @@ class ReportBuilder
     private function addModifiedItems(string $objectName, array $changeList): void
     {
         // Get the the field list to know what the field types are
-        $fields       = $this->fieldRepository->getFieldsFromCache($objectName);
+        $fields       = $this->fieldRepository->getFields($objectName);
         $mappedFields = $this->config->getMappedFields($objectName);
 
         foreach ($changeList as $item) {

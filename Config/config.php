@@ -91,8 +91,11 @@ return [
             ],
             // Provides the form types to use for the configuration UI
             'helloworld.integration.configuration' => [
-                'class' => \MauticPlugin\HelloWorldBundle\Integration\Support\ConfigSupport::class,
-                'tags'  => [
+                'class'     => \MauticPlugin\HelloWorldBundle\Integration\Support\ConfigSupport::class,
+                'arguments' => [
+                    'helloworld.sync.repository.fields',
+                ],
+                'tags'      => [
                     'mautic.config_integration',
                 ],
             ],
