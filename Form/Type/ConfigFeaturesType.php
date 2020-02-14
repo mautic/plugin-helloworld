@@ -28,7 +28,6 @@ class ConfigFeaturesType extends AbstractType
                     'helloworld.world.saturn'  => 'saturn',
                     'helloworld.world.jupiter' => 'jupiter',
                 ],
-                'choices_as_values' => true,
             ]
         );
     }
