@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "type": "rock",
+    "metadata": {
+      "mautic_id": 10
+    }
+  },
+  {
+    "name": "Saturn",
+    "type": "gas",
+    "metadata": {
+      "mautic_id": 20
+    }
+  }
+]

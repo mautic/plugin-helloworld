@@ -1,0 +1,44 @@
+[
+  {
+    "name": "id",
+    "label": "ID",
+    "writable": false,
+    "required": false,
+    "data_type": "integer"
+  },
+  {
+    "name": "firstname",
+    "label": "First Name",
+    "writable": true,
+    "required": false,
+    "data_type": "string"
+  },
+  {
+    "name": "lastname",
+    "label": "Last Name",
+    "writable": true,
+    "required": true,
+    "data_type": "string"
+  },
+  {
+    "name": "email",
+    "label": "Email",
+    "writable": true,
+    "required": true,
+    "data_type": "email"
+  },
+  {
+    "name": "opt_in",
+    "label": "Opt In",
+    "writable": true,
+    "required": false,
+    "data_type": "bool"
+  },
+  {
+    "name": "home_planet",
+    "label": "Home Planet",
+    "writable": true,
+    "required": false,
+    "data_type": "string"
+  }
+]

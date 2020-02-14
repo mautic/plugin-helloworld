@@ -51,7 +51,9 @@ class FieldRepository
      */
     public function getFieldsFromApi(string $object): array
     {
-        return $this->client->getFields($object);
+        $fields = $this->client->getFields($object);
+
+        return $this->hydrateFieldObjects($fields);
     }
 
     private function getCacheKey(string $object): string

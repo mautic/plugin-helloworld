@@ -75,7 +75,7 @@ class ReportBuilder
         foreach ($requestedObjects as $requestedObject) {
             $objectName = $requestedObject->getObject();
             // Fetch a list of changed objects from the integration's API
-            $modifiedItems = $this->client->getList(
+            $modifiedItems = $this->client->get(
                 $objectName,
                 $startDateTime,
                 $endDateTime,
@@ -92,7 +92,8 @@ class ReportBuilder
     private function addModifiedItems(string $objectName, array $changeList): void
     {
         // Get the the field list to know what the field types are
-        $fields = $this->fieldRepository->getFieldsFromCache($objectName);
+        $fields       = $this->fieldRepository->getFieldsFromCache($objectName);
+        $mappedFields = $this->config->getMappedFields($objectName);
 
         foreach ($changeList as $item) {
             $objectDAO = new ReportObjectDAO(
@@ -100,10 +101,9 @@ class ReportBuilder
                 // Set the ID from the integration
                 $item['id'],
                 // Set the date/time when the full object was last modified or created
-                new \DateTime($item['last_modified_timestamp'] ?: $item['created_timestamp'])
+                new \DateTime(!empty($item['last_modified_timestamp']) ? $item['last_modified_timestamp'] : $item['created_timestamp'])
             );
 
-            $mappedFields = $this->config->getMappedFields($objectName);
             foreach ($item['fields'] as $fieldAlias => $fieldValue) {
                 if (!isset($fields[$fieldAlias]) || !isset($mappedFields[$fieldAlias])) {
                     // Field is not recognized or it's not mapped so ignore

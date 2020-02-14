@@ -1,0 +1,40 @@
+[
+  {
+    "id": 1,
+    "code": 200,
+    "message": "Object updated",
+    "metadata": {
+      "mautic_id": 10
+    }
+  },
+  {
+    "id": 2,
+    "code": 404,
+    "message": "Object deleted",
+    "metadata": {
+      "mautic_id": 20
+    }
+  },
+  {
+    "id": 3,
+    "code": 201,
+    "message": "Object created",
+    "metadata": {
+      "mautic_id": 30
+    }
+  },
+  {
+    "code": 400,
+    "message": "Email is required",
+    "metadata": {
+      "mautic_id": 40
+    }
+  },
+  {
+    "code": 503,
+    "message": "Rate limit exceeded",
+    "metadata": {
+      "mautic_id": 50
+    }
+  }
+]

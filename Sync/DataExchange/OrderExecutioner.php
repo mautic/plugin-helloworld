@@ -17,11 +17,6 @@ class OrderExecutioner
     private $client;
 
     /**
-     * @var Config
-     */
-    private $config;
-
-    /**
      * @var ValueNormalizer
      */
     private $valueNormalizer;
@@ -32,9 +27,12 @@ class OrderExecutioner
     private $order;
 
     /**
-     * @var ObjectChangeDAO[]
+     * @var array[]
      */
-    private $mappedObjects = [];
+    private $mappedObjects = [
+        MappingManualFactory::CITIZEN_OBJECT => [],
+        MappingManualFactory::WORLD_OBJECT   => [],
+    ];
 
     public function __construct(Client $client)
     {
@@ -78,9 +76,9 @@ class OrderExecutioner
             $data[] = $this->prepareFieldPayload($objectChangeDAO);
         }
 
-        $response = $this->client->upsertList($objectName, $data);
+        $response = $this->client->upsert($objectName, $data);
 
-        $this->processResponse($response);
+        $this->processResponse($objectName, $response);
     }
 
     private function prepareFieldPayload(ObjectChangeDAO $objectChangeDAO): array
@@ -103,7 +101,7 @@ class OrderExecutioner
         $datum['metadata'] = ['mautic_id' => $objectChangeDAO->getMappedObjectId()];
 
         // Store the object to the mapped Mautic ID for retrieval when processing the response
-        $this->mappedObjects[$objectChangeDAO->getMappedObjectId()] = $objectChangeDAO;
+        $this->mappedObjects[$objectChangeDAO->getObject()][$objectChangeDAO->getMappedObjectId()] = $objectChangeDAO;
 
         /** @var FieldDAO $field */
         foreach ($fields as $field) {
@@ -116,12 +114,12 @@ class OrderExecutioner
         return $datum;
     }
 
-    private function processResponse(array $response): void
+    private function processResponse(string $objectName, array $response): void
     {
         foreach ($response as $itemResponse) {
             // Set the Mautic ID passed through back to us through the API to find the associated ObjectChangeDAO
             $mauticId        = $itemResponse['metadata']['mautic_id'];
-            $objectChangeDAO = $this->mappedObjects[$mauticId];
+            $objectChangeDAO = $this->mappedObjects[$objectName][$mauticId];
 
             // The order should be updated with the results of the sync by passing in the ObjectChangeDAO to appropriate method
             switch ($itemResponse['code']) {

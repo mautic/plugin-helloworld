@@ -60,14 +60,6 @@ class Config
     }
 
     /**
-     * Returns true if the plugin is published and authorized.
-     */
-    public function isActive(): bool
-    {
-        return $this->isPublished() && $this->isAuthorized();
-    }
-
-    /**
      * @return mixed[]
      */
     public function getFeatureSettings(): array

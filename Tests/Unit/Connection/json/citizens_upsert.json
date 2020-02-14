@@ -1,0 +1,43 @@
+[
+  {
+    "id": 1,
+    "firstname": "Alien1",
+    "metadata": {
+      "mautic_id": 10
+    }
+  },
+  {
+    "id": 2,
+    "firstname": "Alien2",
+    "metadata": {
+      "mautic_id": 20
+    }
+  },
+  {
+    "firstname": "Charlie",
+    "lastname": "Alien",
+    "email": "charlie@faraway.com",
+    "opt_in": true,
+    "metadata": {
+      "mautic_id": 30
+    }
+  },
+  {
+    "firstname": "Feliz",
+    "lastname": "Alien",
+    "email": "",
+    "opt_in": false,
+    "metadata": {
+      "mautic_id": 40
+    }
+  },
+  {
+    "firstname": "Pancho",
+    "lastname": "Alien",
+    "email": "pancho@faraway.com",
+    "opt_in": true,
+    "metadata": {
+      "mautic_id": 50
+    }
+  }
+]

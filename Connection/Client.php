@@ -53,7 +53,7 @@ class Client
      * @throws IntegrationNotFoundException
      * @throws InvalidCredentialsException
      */
-    public function getList(string $objectName, \DateTimeInterface $startDateTime, \DateTimeInterface $endDateTime, int $page): array
+    public function get(string $objectName, \DateTimeInterface $startDateTime, \DateTimeInterface $endDateTime, int $page = 1): array
     {
         $client  = $this->getClient();
         $url     = sprintf('%s/%s', $this->apiUrl, $objectName);
@@ -85,7 +85,7 @@ class Client
         return json_decode($response->getBody()->getContents(), true);
     }
 
-    public function upsertList(string $objectName, array $data): array
+    public function upsert(string $objectName, array $data): array
     {
         $client  = $this->getClient();
         $url     = sprintf('%s/%s', $this->apiUrl, $objectName);
@@ -112,8 +112,8 @@ class Client
 
     public function getFields(string $objectName): array
     {
-        $client   = $this->getClient();
-        $url      = sprintf('%s/world/%s', $this->apiUrl, $objectName);
+        $client = $this->getClient();
+        $url    = sprintf('%s/fields/%s', $this->apiUrl, $objectName);
 
         $response = $client->request('GET', $url);
 

@@ -1,0 +1,23 @@
+[
+  {
+    "name": "id",
+    "label": "ID",
+    "writable": false,
+    "required": false,
+    "data_type": "integer"
+  },
+  {
+    "name": "name",
+    "label": "Name",
+    "writable": true,
+    "required": true,
+    "data_type": "string"
+  },
+  {
+    "name": "type",
+    "label": "Type",
+    "writable": true,
+    "required": false,
+    "data_type": "string"
+  }
+]

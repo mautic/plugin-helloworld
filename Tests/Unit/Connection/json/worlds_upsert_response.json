@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "code": 200,
+    "message": "Object updated",
+    "metadata": {
+      "mautic_id": 10
+    }
+  },
+  {
+    "id": 3,
+    "code": 201,
+    "message": "Object created",
+    "metadata": {
+      "mautic_id": 20
+    }
+  }
+]

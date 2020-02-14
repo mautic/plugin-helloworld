@@ -21,7 +21,7 @@ class ValueNormalizer implements ValueNormalizerInterface
         }
     }
 
-    public function normalizeForMautic(string $value, $type): NormalizedValueDAO
+    public function normalizeForMautic($value, $type): NormalizedValueDAO
     {
         switch ($type) {
             case self::BOOLEAN_TYPE:

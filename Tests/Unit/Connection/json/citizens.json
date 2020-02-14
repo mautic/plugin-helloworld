@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "last_modified_timestamp": "2020-02-05 05:07:08",
+    "created_timestamp": "2020-02-01 02:03:04",
+    "fields": {
+      "firstname": "Bob",
+      "lastname": "Alien",
+      "email": "bob@faraway.com",
+      "opt_in": true,
+      "home_planet": "Mars"
+    }
+  },
+  {
+    "id": 2,
+    "last_modified_timestamp": null,
+    "created_timestamp": "2020-02-01 02:03:04",
+    "fields": {
+      "firstname": "Jane",
+      "lastname": "Alien",
+      "email": "jane@faraway.com",
+      "opt_in": false,
+      "home_planet": "Saturn"
+    }
+  }
+]
