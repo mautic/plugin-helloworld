@@ -4,3 +4,9 @@ This is a sample plugin built for Mautic 3 on the now included IntegrationsBundl
 It does not work in the UI because the API endpoints do not exist. :-) 
 
 However, this can be used as an example in combination with the [Integrations plugin wiki](https://github.com/mautic-inc/plugin-integrations/wiki).
+
+This plugin has examples for 
+* Plugin migrations
+* OAuth2 client credentials client
+* Configuration UI interfaces
+* Syncing Mautic contacts and companies
