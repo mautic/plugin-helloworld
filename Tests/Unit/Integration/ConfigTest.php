@@ -4,24 +4,24 @@ declare(strict_types=1);
 
 namespace MauticPlugin\HelloWorldBundle\Tests\Unit\Integration;
 
-use Mautic\PluginBundle\Entity\Integration;
-use MauticPlugin\HelloWorldBundle\Integration\Config;
-use MauticPlugin\HelloWorldBundle\Integration\HelloWorldIntegration;
-use MauticPlugin\HelloWorldBundle\Sync\Mapping\Manual\MappingManualFactory;
 use Mautic\IntegrationsBundle\Exception\InvalidValueException;
 use Mautic\IntegrationsBundle\Helper\IntegrationsHelper;
 use Mautic\IntegrationsBundle\Integration\Interfaces\IntegrationInterface;
 use Mautic\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
+use Mautic\PluginBundle\Entity\Integration;
+use MauticPlugin\HelloWorldBundle\Integration\Config;
+use MauticPlugin\HelloWorldBundle\Integration\HelloWorldIntegration;
+use MauticPlugin\HelloWorldBundle\Sync\Mapping\Manual\MappingManualFactory;
 
-class ConfigTest extends \PHPUnit_Framework_TestCase
+class ConfigTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var Integration|\PHPUnit_Framework_MockObject_MockObject
+     * @var Integration|\PHPUnit\Framework\MockObject\MockObject
      */
     private $integration;
 
     /**
-     * @var IntegrationsHelper|\PHPUnit_Framework_MockObject_MockObject
+     * @var IntegrationsHelper|\PHPUnit\Framework\MockObject\MockObject
      */
     private $integrationsHelper;
 

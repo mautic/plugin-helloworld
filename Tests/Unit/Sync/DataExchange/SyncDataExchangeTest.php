@@ -4,23 +4,23 @@ declare(strict_types=1);
 
 namespace MauticPlugin\HelloWorldBundle\Tests\Unit\Sync\DataExchange;
 
-use MauticPlugin\HelloWorldBundle\Sync\DataExchange\OrderExecutioner;
-use MauticPlugin\HelloWorldBundle\Sync\DataExchange\ReportBuilder;
-use MauticPlugin\HelloWorldBundle\Sync\DataExchange\SyncDataExchange;
 use Mautic\IntegrationsBundle\Sync\DAO\Sync\InputOptionsDAO;
 use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\OrderDAO;
 use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
 use Mautic\IntegrationsBundle\Sync\DAO\Sync\Request\RequestDAO;
+use MauticPlugin\HelloWorldBundle\Sync\DataExchange\OrderExecutioner;
+use MauticPlugin\HelloWorldBundle\Sync\DataExchange\ReportBuilder;
+use MauticPlugin\HelloWorldBundle\Sync\DataExchange\SyncDataExchange;
 
-class SyncDataExchangeTest extends \PHPUnit_Framework_TestCase
+class SyncDataExchangeTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var ReportBuilder|\PHPUnit_Framework_MockObject_MockObject
+     * @var ReportBuilder|\PHPUnit\Framework\MockObject\MockObject
      */
     private $reportBuilder;
 
     /**
-     * @var OrderExecutioner|\PHPUnit_Framework_MockObject_MockObject
+     * @var OrderExecutioner|\PHPUnit\Framework\MockObject\MockObject
      */
     private $orderExecutioner;
 

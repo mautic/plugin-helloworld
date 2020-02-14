@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace MauticPlugin\HelloWorldBundle\Tests\Unit\Sync\Mapping\Manual;
 
 use Mautic\CoreBundle\Helper\CacheStorageHelper;
+use Mautic\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
+use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
 use MauticPlugin\HelloWorldBundle\Connection\Client;
 use MauticPlugin\HelloWorldBundle\Integration\Config;
 use MauticPlugin\HelloWorldBundle\Sync\Mapping\Field\FieldRepository;
 use MauticPlugin\HelloWorldBundle\Sync\Mapping\Manual\MappingManualFactory;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
 
-class MappingManualFactoryTest extends \PHPUnit_Framework_TestCase
+class MappingManualFactoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var Client|\PHPUnit_Framework_MockObject_MockObject
+     * @var Client|\PHPUnit\Framework\MockObject\MockObject
      */
     private $client;
 
@@ -25,12 +25,12 @@ class MappingManualFactoryTest extends \PHPUnit_Framework_TestCase
     private $fieldRepository;
 
     /**
-     * @var CacheStorageHelper|\PHPUnit_Framework_MockObject_MockObject
+     * @var CacheStorageHelper|\PHPUnit\Framework\MockObject\MockObject
      */
     private $cacheStorageProvider;
 
     /**
-     * @var Config|\PHPUnit_Framework_MockObject_MockObject
+     * @var Config|\PHPUnit\Framework\MockObject\MockObject
      */
     private $config;
 

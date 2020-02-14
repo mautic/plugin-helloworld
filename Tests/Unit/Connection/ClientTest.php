@@ -8,32 +8,32 @@ use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
+use Mautic\IntegrationsBundle\Auth\Provider\Oauth2TwoLegged\HttpFactory;
+use Mautic\IntegrationsBundle\Exception\PluginNotConfiguredException;
 use MauticPlugin\HelloWorldBundle\Connection\Client;
 use MauticPlugin\HelloWorldBundle\Connection\Config as ConnectionConfig;
 use MauticPlugin\HelloWorldBundle\Integration\Config;
-use Mautic\IntegrationsBundle\Auth\Provider\Oauth2TwoLegged\HttpFactory;
-use Mautic\IntegrationsBundle\Exception\PluginNotConfiguredException;
 use Monolog\Logger;
 
-class ClientTest extends \PHPUnit_Framework_TestCase
+class ClientTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var HttpFactory|\PHPUnit_Framework_MockObject_MockObject
+     * @var HttpFactory|\PHPUnit\Framework\MockObject\MockObject
      */
     private $httpFactory;
 
     /**
-     * @var Config|\PHPUnit_Framework_MockObject_MockObject
+     * @var Config|\PHPUnit\Framework\MockObject\MockObject
      */
     private $config;
 
     /**
-     * @var ConnectionConfig|\PHPUnit_Framework_MockObject_MockObject
+     * @var ConnectionConfig|\PHPUnit\Framework\MockObject\MockObject
      */
     private $connectionConfig;
 
     /**
-     * @var Logger|\PHPUnit_Framework_MockObject_MockObject
+     * @var Logger|\PHPUnit\Framework\MockObject\MockObject
      */
     private $logger;
 

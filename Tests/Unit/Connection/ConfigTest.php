@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace MauticPlugin\HelloWorldBundle\Tests\Unit\Connection;
 
-use Mautic\PluginBundle\Entity\Integration;
-use MauticPlugin\HelloWorldBundle\Connection\Config;
 use Mautic\IntegrationsBundle\Auth\Support\Oauth2\Token\TokenPersistence;
 use Mautic\IntegrationsBundle\Auth\Support\Oauth2\Token\TokenPersistenceFactory;
+use Mautic\PluginBundle\Entity\Integration;
+use MauticPlugin\HelloWorldBundle\Connection\Config;
 
-class ConfigTest extends \PHPUnit_Framework_TestCase
+class ConfigTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var TokenPersistenceFactory|\PHPUnit_Framework_MockObject_MockObject
+     * @var TokenPersistenceFactory|\PHPUnit\Framework\MockObject\MockObject
      */
     private $tokenPersistanceFactory;
 

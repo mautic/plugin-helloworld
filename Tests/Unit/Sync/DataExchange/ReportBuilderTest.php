@@ -5,24 +5,24 @@ declare(strict_types=1);
 namespace MauticPlugin\HelloWorldBundle\Tests\Unit\Sync\DataExchange;
 
 use Mautic\CoreBundle\Helper\CacheStorageHelper;
+use Mautic\IntegrationsBundle\Sync\DAO\Sync\InputOptionsDAO;
+use Mautic\IntegrationsBundle\Sync\DAO\Sync\Request\ObjectDAO;
 use MauticPlugin\HelloWorldBundle\Connection\Client;
 use MauticPlugin\HelloWorldBundle\Integration\Config;
 use MauticPlugin\HelloWorldBundle\Integration\HelloWorldIntegration;
 use MauticPlugin\HelloWorldBundle\Sync\DataExchange\ReportBuilder;
 use MauticPlugin\HelloWorldBundle\Sync\Mapping\Field\FieldRepository;
 use MauticPlugin\HelloWorldBundle\Sync\Mapping\Manual\MappingManualFactory;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\InputOptionsDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Request\ObjectDAO;
 
-class ReportBuilderTest extends \PHPUnit_Framework_TestCase
+class ReportBuilderTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var Client|\PHPUnit_Framework_MockObject_MockObject
+     * @var Client|\PHPUnit\Framework\MockObject\MockObject
      */
     private $client;
 
     /**
-     * @var Config|\PHPUnit_Framework_MockObject_MockObject
+     * @var Config|\PHPUnit\Framework\MockObject\MockObject
      */
     private $config;
 
@@ -32,7 +32,7 @@ class ReportBuilderTest extends \PHPUnit_Framework_TestCase
     private $fieldRepository;
 
     /**
-     * @var CacheStorageHelper|\PHPUnit_Framework_MockObject_MockObject
+     * @var CacheStorageHelper|\PHPUnit\Framework\MockObject\MockObject
      */
     private $cacheStorageProvider;
 

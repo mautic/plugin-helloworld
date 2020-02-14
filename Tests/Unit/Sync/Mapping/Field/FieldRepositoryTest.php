@@ -10,10 +10,10 @@ use MauticPlugin\HelloWorldBundle\Sync\Mapping\Field\Field;
 use MauticPlugin\HelloWorldBundle\Sync\Mapping\Field\FieldRepository;
 use MauticPlugin\HelloWorldBundle\Sync\Mapping\Manual\MappingManualFactory;
 
-class FieldRepositoryTest extends \PHPUnit_Framework_TestCase
+class FieldRepositoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var Client|\PHPUnit_Framework_MockObject_MockObject
+     * @var Client|\PHPUnit\Framework\MockObject\MockObject
      */
     private $client;
 
@@ -23,7 +23,7 @@ class FieldRepositoryTest extends \PHPUnit_Framework_TestCase
     private $fieldRepository;
 
     /**
-     * @var CacheStorageHelper|\PHPUnit_Framework_MockObject_MockObject
+     * @var CacheStorageHelper|\PHPUnit\Framework\MockObject\MockObject
      */
     private $cacheStorageProvider;
 

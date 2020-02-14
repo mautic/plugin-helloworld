@@ -6,7 +6,7 @@ namespace MauticPlugin\HelloWorldBundle\Tests\Unit\Connection;
 
 use MauticPlugin\HelloWorldBundle\Connection\Credentials;
 
-class CredentialsTest extends \PHPUnit_Framework_TestCase
+class CredentialsTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetters(): void
     {

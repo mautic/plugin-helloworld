@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace MauticPlugin\HelloWorldBundle\Tests\Unit\Sync\DataExchange;
 
-use MauticPlugin\HelloWorldBundle\Connection\Client;
-use MauticPlugin\HelloWorldBundle\Integration\HelloWorldIntegration;
-use MauticPlugin\HelloWorldBundle\Sync\DataExchange\OrderExecutioner;
-use MauticPlugin\HelloWorldBundle\Sync\Mapping\Manual\MappingManualFactory;
 use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\FieldDAO;
 use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
 use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\OrderDAO;
 use Mautic\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
 use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Company;
 use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
+use MauticPlugin\HelloWorldBundle\Connection\Client;
+use MauticPlugin\HelloWorldBundle\Integration\HelloWorldIntegration;
+use MauticPlugin\HelloWorldBundle\Sync\DataExchange\OrderExecutioner;
+use MauticPlugin\HelloWorldBundle\Sync\Mapping\Manual\MappingManualFactory;
 
-class OrderExecutionerTest extends \PHPUnit_Framework_TestCase
+class OrderExecutionerTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var Client|\PHPUnit_Framework_MockObject_MockObject
+     * @var Client|\PHPUnit\Framework\MockObject\MockObject
      */
     private $client;
 

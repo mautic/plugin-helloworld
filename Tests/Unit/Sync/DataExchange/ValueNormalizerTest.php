@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace MauticPlugin\HelloWorldBundle\Tests\Unit\Sync\DataExchange;
 
-use MauticPlugin\HelloWorldBundle\Sync\DataExchange\ValueNormalizer;
 use Mautic\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
+use MauticPlugin\HelloWorldBundle\Sync\DataExchange\ValueNormalizer;
 
-class ValueNormalizerTest extends \PHPUnit_Framework_TestCase
+class ValueNormalizerTest extends \PHPUnit\Framework\TestCase
 {
     public function testBooleanConvertedForIntegration(): void
     {
