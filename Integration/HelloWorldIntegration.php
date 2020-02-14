@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace MauticPlugin\HelloWorldBundle\Integration;
 
-use MauticPlugin\IntegrationsBundle\Integration\BasicIntegration;
-use MauticPlugin\IntegrationsBundle\Integration\ConfigurationTrait;
-use MauticPlugin\IntegrationsBundle\Integration\Interfaces\BasicInterface;
+use Mautic\IntegrationsBundle\Integration\BasicIntegration;
+use Mautic\IntegrationsBundle\Integration\ConfigurationTrait;
+use Mautic\IntegrationsBundle\Integration\Interfaces\BasicInterface;
 
 class HelloWorldIntegration extends BasicIntegration implements BasicInterface
 {

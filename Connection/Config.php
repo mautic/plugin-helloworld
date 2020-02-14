@@ -6,8 +6,8 @@ namespace MauticPlugin\HelloWorldBundle\Connection;
 
 use kamermans\OAuth2\Persistence\TokenPersistenceInterface;
 use Mautic\PluginBundle\Entity\Integration;
-use MauticPlugin\IntegrationsBundle\Auth\Support\Oauth2\ConfigAccess\ConfigTokenPersistenceInterface;
-use MauticPlugin\IntegrationsBundle\Auth\Support\Oauth2\Token\TokenPersistenceFactory;
+use Mautic\IntegrationsBundle\Auth\Support\Oauth2\ConfigAccess\ConfigTokenPersistenceInterface;
+use Mautic\IntegrationsBundle\Auth\Support\Oauth2\Token\TokenPersistenceFactory;
 
 class Config implements ConfigTokenPersistenceInterface
 {

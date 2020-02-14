@@ -7,10 +7,10 @@ namespace MauticPlugin\HelloWorldBundle\Tests\Unit\Sync\DataExchange;
 use MauticPlugin\HelloWorldBundle\Sync\DataExchange\OrderExecutioner;
 use MauticPlugin\HelloWorldBundle\Sync\DataExchange\ReportBuilder;
 use MauticPlugin\HelloWorldBundle\Sync\DataExchange\SyncDataExchange;
-use MauticPlugin\IntegrationsBundle\Sync\DAO\Sync\InputOptionsDAO;
-use MauticPlugin\IntegrationsBundle\Sync\DAO\Sync\Order\OrderDAO;
-use MauticPlugin\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
-use MauticPlugin\IntegrationsBundle\Sync\DAO\Sync\Request\RequestDAO;
+use Mautic\IntegrationsBundle\Sync\DAO\Sync\InputOptionsDAO;
+use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\OrderDAO;
+use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
+use Mautic\IntegrationsBundle\Sync\DAO\Sync\Request\RequestDAO;
 
 class SyncDataExchangeTest extends \PHPUnit_Framework_TestCase
 {

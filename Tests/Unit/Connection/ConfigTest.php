@@ -6,8 +6,8 @@ namespace MauticPlugin\HelloWorldBundle\Tests\Unit\Connection;
 
 use Mautic\PluginBundle\Entity\Integration;
 use MauticPlugin\HelloWorldBundle\Connection\Config;
-use MauticPlugin\IntegrationsBundle\Auth\Support\Oauth2\Token\TokenPersistence;
-use MauticPlugin\IntegrationsBundle\Auth\Support\Oauth2\Token\TokenPersistenceFactory;
+use Mautic\IntegrationsBundle\Auth\Support\Oauth2\Token\TokenPersistence;
+use Mautic\IntegrationsBundle\Auth\Support\Oauth2\Token\TokenPersistenceFactory;
 
 class ConfigTest extends \PHPUnit_Framework_TestCase
 {

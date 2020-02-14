@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MauticPlugin\HelloWorldBundle\Sync\Mapping\Field;
 
-use MauticPlugin\IntegrationsBundle\Mapping\MappedFieldInfoInterface;
+use Mautic\IntegrationsBundle\Mapping\MappedFieldInfoInterface;
 
 class MappedFieldInfo implements MappedFieldInfoInterface
 {

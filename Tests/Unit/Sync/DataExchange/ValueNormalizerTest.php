@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MauticPlugin\HelloWorldBundle\Tests\Unit\Sync\DataExchange;
 
 use MauticPlugin\HelloWorldBundle\Sync\DataExchange\ValueNormalizer;
-use MauticPlugin\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
+use Mautic\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
 
 class ValueNormalizerTest extends \PHPUnit_Framework_TestCase
 {

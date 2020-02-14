@@ -9,10 +9,10 @@ use GuzzleHttp\Exception\GuzzleException;
 use MauticPlugin\HelloWorldBundle\Connection\Config as ConnectionConfig;
 use MauticPlugin\HelloWorldBundle\Integration\Config;
 use MauticPlugin\HelloWorldBundle\Integration\HelloWorldIntegration;
-use MauticPlugin\IntegrationsBundle\Auth\Provider\Oauth2TwoLegged\HttpFactory;
-use MauticPlugin\IntegrationsBundle\Exception\IntegrationNotFoundException;
-use MauticPlugin\IntegrationsBundle\Exception\InvalidCredentialsException;
-use MauticPlugin\IntegrationsBundle\Exception\PluginNotConfiguredException;
+use Mautic\IntegrationsBundle\Auth\Provider\Oauth2TwoLegged\HttpFactory;
+use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
+use Mautic\IntegrationsBundle\Exception\InvalidCredentialsException;
+use Mautic\IntegrationsBundle\Exception\PluginNotConfiguredException;
 use Monolog\Logger;
 
 class Client

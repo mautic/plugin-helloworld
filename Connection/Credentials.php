@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MauticPlugin\HelloWorldBundle\Connection;
 
-use MauticPlugin\IntegrationsBundle\Auth\Provider\Oauth2TwoLegged\Credentials\ClientCredentialsGrantInterface;
+use Mautic\IntegrationsBundle\Auth\Provider\Oauth2TwoLegged\Credentials\ClientCredentialsGrantInterface;
 
 class Credentials implements ClientCredentialsGrantInterface
 {

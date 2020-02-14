@@ -11,8 +11,8 @@ use GuzzleHttp\Psr7\Response;
 use MauticPlugin\HelloWorldBundle\Connection\Client;
 use MauticPlugin\HelloWorldBundle\Connection\Config as ConnectionConfig;
 use MauticPlugin\HelloWorldBundle\Integration\Config;
-use MauticPlugin\IntegrationsBundle\Auth\Provider\Oauth2TwoLegged\HttpFactory;
-use MauticPlugin\IntegrationsBundle\Exception\PluginNotConfiguredException;
+use Mautic\IntegrationsBundle\Auth\Provider\Oauth2TwoLegged\HttpFactory;
+use Mautic\IntegrationsBundle\Exception\PluginNotConfiguredException;
 use Monolog\Logger;
 
 class ClientTest extends \PHPUnit_Framework_TestCase

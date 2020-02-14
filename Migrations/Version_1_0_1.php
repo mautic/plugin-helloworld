@@ -6,7 +6,7 @@ namespace MauticPlugin\HelloWorldBundle\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\SchemaException;
-use MauticPlugin\IntegrationsBundle\Migration\AbstractMigration;
+use Mautic\IntegrationsBundle\Migration\AbstractMigration;
 
 class Version_1_0_1 extends AbstractMigration
 {

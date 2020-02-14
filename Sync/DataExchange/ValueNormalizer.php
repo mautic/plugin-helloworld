@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace MauticPlugin\HelloWorldBundle\Sync\DataExchange;
 
-use MauticPlugin\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
-use MauticPlugin\IntegrationsBundle\Sync\ValueNormalizer\ValueNormalizerInterface;
+use Mautic\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
+use Mautic\IntegrationsBundle\Sync\ValueNormalizer\ValueNormalizerInterface;
 
 class ValueNormalizer implements ValueNormalizerInterface
 {

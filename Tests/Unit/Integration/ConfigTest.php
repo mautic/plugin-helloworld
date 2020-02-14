@@ -8,10 +8,10 @@ use Mautic\PluginBundle\Entity\Integration;
 use MauticPlugin\HelloWorldBundle\Integration\Config;
 use MauticPlugin\HelloWorldBundle\Integration\HelloWorldIntegration;
 use MauticPlugin\HelloWorldBundle\Sync\Mapping\Manual\MappingManualFactory;
-use MauticPlugin\IntegrationsBundle\Exception\InvalidValueException;
-use MauticPlugin\IntegrationsBundle\Helper\IntegrationsHelper;
-use MauticPlugin\IntegrationsBundle\Integration\Interfaces\IntegrationInterface;
-use MauticPlugin\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
+use Mautic\IntegrationsBundle\Exception\InvalidValueException;
+use Mautic\IntegrationsBundle\Helper\IntegrationsHelper;
+use Mautic\IntegrationsBundle\Integration\Interfaces\IntegrationInterface;
+use Mautic\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
 
 class ConfigTest extends \PHPUnit_Framework_TestCase
 {
