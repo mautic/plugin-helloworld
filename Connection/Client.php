@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MauticPlugin\HelloWorldBundle\Connection;
 
+use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Mautic\IntegrationsBundle\Auth\Provider\Oauth2TwoLegged\HttpFactory;
@@ -53,7 +54,7 @@ class Client
      * @throws IntegrationNotFoundException
      * @throws InvalidCredentialsException
      */
-    public function get(string $objectName, \DateTimeInterface $startDateTime, \DateTimeInterface $endDateTime, int $page = 1): array
+    public function get(string $objectName, ?\DateTimeInterface $startDateTime, ?\DateTimeInterface $endDateTime, int $page = 1): array
     {
         $client  = $this->getClient();
         $url     = sprintf('%s/%s', $this->apiUrl, $objectName);
@@ -61,8 +62,8 @@ class Client
         // This imaginary API assumes support to query for created or modified items between two timestamps with native pagination
         $options = [
             'query' => [
-                'createdOrModifiedSince'  => $startDateTime->getTimestamp(),
-                'createdOrModifiedBefore' => $endDateTime->getTimestamp(),
+                'createdOrModifiedSince'  => $startDateTime ? $startDateTime->getTimestamp() : null,
+                'createdOrModifiedBefore' => $endDateTime ? $endDateTime->getTimestamp() : null,
                 'page'                    => $page,
             ],
         ];
@@ -115,7 +116,12 @@ class Client
         $client = $this->getClient();
         $url    = sprintf('%s/fields/%s', $this->apiUrl, $objectName);
 
-        $response = $client->request('GET', $url);
+        try {
+            $response = $client->request('GET', $url);
+        } catch (AccessTokenRequestException $exception) {
+            // Mock an access token since the authorization URL is non-existing
+            die($exception);
+        }
 
         if (200 !== $response->getStatusCode()) {
             $this->logger->error(
@@ -131,19 +137,6 @@ class Client
         }
 
         return json_decode($response->getBody()->getContents(), true);
-    }
-
-    /**
-     * @throws PluginNotConfiguredException
-     * @throws InvalidCredentialsException
-     * @throws IntegrationNotFoundException
-     */
-    private function getClient(): ClientInterface
-    {
-        $credentials = $this->getCredentials();
-        $config      = $this->getConfig();
-
-        return $this->httpFactory->getClient($credentials, $config);
     }
 
     /**
@@ -167,5 +160,32 @@ class Client
         $this->connectionConfig->setIntegrationConfiguration($this->config->getIntegrationEntity());
 
         return $this->connectionConfig;
+    }
+
+    /**
+     * @throws PluginNotConfiguredException
+     * @throws InvalidCredentialsException
+     * @throws IntegrationNotFoundException
+     */
+    private function getClient(): ClientInterface
+    {
+        // Using a mocked client in order to demonstrate the UI but the "real" code is below
+        if (defined('MAUTIC_ENV') && ('dev' === MAUTIC_ENV || 'prod' === MAUTIC_ENV)) {
+            return $this->getMockedClient();
+        }
+
+        $credentials = $this->getCredentials();
+        $config      = $this->getConfig();
+
+        return $this->httpFactory->getClient($credentials, $config);
+    }
+
+    private function getMockedClient(): ClientInterface
+    {
+        return new GuzzleClient(
+            [
+                'handler' => new MockedHandler(),
+            ]
+        );
     }
 }

@@ -34,5 +34,17 @@ class Config implements ConfigTokenPersistenceInterface
     public function setIntegrationConfiguration(Integration $integrationConfiguration): void
     {
         $this->integrationConfiguration = $integrationConfiguration;
+
+        // MOCKED SINCE THE PLUGIN CANNOT ACTUALLY FETCH AN ACCESS TOKEN
+        $apiKeys                        = $integrationConfiguration->getApiKeys();
+        $apiKeys                        = array_merge(
+            $apiKeys,
+            [
+                'access_token'  => 'abc123',
+                'refresh_token' => '123abc',
+                'expires'       => time() + 3600,
+            ]
+        );
+        $integrationConfiguration->setApiKeys($apiKeys);
     }
 }
