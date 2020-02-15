@@ -63,6 +63,10 @@ class OrderExecutioner
 
             // Not all integrations can be this easy. Some require more complicated processes such as checking if they
             // already exist in the integration before creating/updating and the like.
+            if (!$changedObjects) {
+                continue;
+            }
+
             $this->upsertObjects($objectName, $changedObjects);
         }
     }
