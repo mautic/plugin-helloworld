@@ -3,7 +3,7 @@ This is a sample plugin built for Mautic 2 (PHP 7.2 required) on the [Integratio
 
 A version for Mautic 3 can be found [here](https://github.com/mautic-inc/plugin-helloworld/tree/mautic-3).
 
-This can be used as an example in combination with the [Integrations plugin wiki](https://github.com/mautic-inc/plugin-integrations/wiki).
+This can be used as an example in combination with the [Integrations plugin wiki](https://github.com/mautic-inc/plugin-integrations/wiki). Note that the Integrations plugin does not work out of the box with Mautic 2 but requires additional installation steps. See the wiki for more information.
 
 This plugin has examples for:
 * Plugin migrations
