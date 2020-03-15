@@ -84,7 +84,7 @@ return [
         ],
         'integrations' => [
             // Basic definitions with name, display name and icon
-            'helloworld.integration'               => [
+            'mautic.integration.helloworld'               => [
                 'class' => \MauticPlugin\HelloWorldBundle\Integration\HelloWorldIntegration::class,
                 'tags'  => [
                     'mautic.integration',
