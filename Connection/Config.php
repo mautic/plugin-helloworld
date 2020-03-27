@@ -35,7 +35,7 @@ class Config implements ConfigTokenPersistenceInterface
     {
         $this->integrationConfiguration = $integrationConfiguration;
 
-        // MOCKED SINCE THE PLUGIN CANNOT ACTUALLY FETCH AN ACCESS TOKEN
+        // MOCKED SINCE THE PLUGIN CANNOT ACTUALLY FETCH AN ACCESS TOKEN; THIS IS NOT NEEDED IN YOUR PLUGIN
         $apiKeys                        = $integrationConfiguration->getApiKeys();
         $apiKeys                        = array_merge(
             $apiKeys,
