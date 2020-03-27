@@ -10,6 +10,7 @@ return [
     'routes'      => [
         'main'   => [],
         'public' => [
+            // These routes simply mock the Oauth2 authorization code grant flow
             'helloworld_mocked_authorization_endpoint' => [
                 'path'       => '/helloworld/mock/authorize',
                 'controller' => 'HelloWorldBundle:Mocks\Authorize:mock',
