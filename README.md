@@ -1,7 +1,8 @@
 # Hello World
 This is a sample plugin built for Mautic 3 using the integrations framework included in core that was originally based on the [Integrations plugin](https://github.com/mautic-inc/plugin-integrations).
 
-A version for Mautic 2 can be found [here](https://github.com/mautic-inc/plugin-helloworld/tree/mautic-2).
+An example for Mautic 2 for the Oauth2 client credentials grant can be found [here](https://github.com/mautic-inc/plugin-helloworld/tree/mautic-2).
+An example for Mautic 3 for the Oauth2 authorization code grant can be found [here](https://github.com/mautic-inc/plugin-helloworld/tree/mautic-3-authorization-code-grant-example).
 
 This can be used as an example in combination with the [Integrations plugin wiki](https://github.com/mautic-inc/plugin-integrations/wiki).
 
@@ -19,7 +20,7 @@ The following places have mocked code to simulate a working plugin:
 - \MauticPlugin\HelloWorldBundle\Connection\Client::getClient()
 - \MauticPlugin\HelloWorldBundle\Connection\MockedHandler
 
-## Code Excpectations and Standards
+## Code Expectations and Standards
 This plugin also tries to exemplify code standards and expectations. 
 * Code should be clean (see [https://github.com/jupeter/clean-code-php](https://github.com/jupeter/clean-code-php))
 * Code should be well covered with unit and/or functional tests
