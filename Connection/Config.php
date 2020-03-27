@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace MauticPlugin\HelloWorldBundle\Connection;
 
 use kamermans\OAuth2\Persistence\TokenPersistenceInterface;
+use Mautic\IntegrationsBundle\Auth\Support\Oauth2\ConfigAccess\ConfigTokenFactoryInterface;
 use Mautic\IntegrationsBundle\Auth\Support\Oauth2\ConfigAccess\ConfigTokenPersistenceInterface;
+use Mautic\IntegrationsBundle\Auth\Support\Oauth2\Token\IntegrationTokenFactory;
+use Mautic\IntegrationsBundle\Auth\Support\Oauth2\Token\TokenFactoryInterface;
 use Mautic\IntegrationsBundle\Auth\Support\Oauth2\Token\TokenPersistenceFactory;
 use Mautic\PluginBundle\Entity\Integration;
 
-class Config implements ConfigTokenPersistenceInterface
+class Config implements ConfigTokenPersistenceInterface, ConfigTokenFactoryInterface
 {
     /**
      * @var TokenPersistenceFactory
@@ -23,7 +26,7 @@ class Config implements ConfigTokenPersistenceInterface
 
     public function __construct(TokenPersistenceFactory $tokenPersistenceFactory)
     {
-        $this->tokenPersistenceFactory = $tokenPersistenceFactory;
+        $this->tokenPersistenceFactory  = $tokenPersistenceFactory;
     }
 
     public function getTokenPersistence(): TokenPersistenceInterface
@@ -31,20 +34,13 @@ class Config implements ConfigTokenPersistenceInterface
         return $this->tokenPersistenceFactory->create($this->integrationConfiguration);
     }
 
+    public function getTokenFactory(): TokenFactoryInterface
+    {
+        return new IntegrationTokenFactory();
+    }
+
     public function setIntegrationConfiguration(Integration $integrationConfiguration): void
     {
         $this->integrationConfiguration = $integrationConfiguration;
-
-        // MOCKED SINCE THE PLUGIN CANNOT ACTUALLY FETCH AN ACCESS TOKEN; THIS IS NOT NEEDED IN YOUR PLUGIN
-        $apiKeys                        = $integrationConfiguration->getApiKeys();
-        $apiKeys                        = array_merge(
-            $apiKeys,
-            [
-                'access_token'  => 'abc123',
-                'refresh_token' => '123abc',
-                'expires'       => time() + 3600,
-            ]
-        );
-        $integrationConfiguration->setApiKeys($apiKeys);
     }
 }

@@ -7,7 +7,7 @@ namespace MauticPlugin\HelloWorldBundle\Connection;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
-use Mautic\IntegrationsBundle\Auth\Provider\Oauth2TwoLegged\HttpFactory;
+use Mautic\IntegrationsBundle\Auth\Provider\Oauth2ThreeLegged\HttpFactory;
 use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
 use Mautic\IntegrationsBundle\Exception\InvalidCredentialsException;
 use Mautic\IntegrationsBundle\Exception\PluginNotConfiguredException;
@@ -15,6 +15,8 @@ use MauticPlugin\HelloWorldBundle\Connection\Config as ConnectionConfig;
 use MauticPlugin\HelloWorldBundle\Integration\Config;
 use MauticPlugin\HelloWorldBundle\Integration\HelloWorldIntegration;
 use Monolog\Logger;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\Router;
 
 class Client
 {
@@ -40,12 +42,18 @@ class Client
      */
     private $logger;
 
-    public function __construct(HttpFactory $httpFactory, Config $config, ConnectionConfig $connectionConfig, Logger $logger)
+    /**
+     * @var Router
+     */
+    private $router;
+
+    public function __construct(HttpFactory $httpFactory, Config $config, ConnectionConfig $connectionConfig, Logger $logger, Router $router)
     {
         $this->httpFactory      = $httpFactory;
         $this->config           = $config;
         $this->connectionConfig = $connectionConfig;
         $this->logger           = $logger;
+        $this->router = $router;
     }
 
     /**
@@ -116,12 +124,7 @@ class Client
         $client = $this->getClient();
         $url    = sprintf('%s/fields/%s', $this->apiUrl, $objectName);
 
-        try {
-            $response = $client->request('GET', $url);
-        } catch (AccessTokenRequestException $exception) {
-            // Mock an access token since the authorization URL is non-existing
-            die($exception);
-        }
+        $response = $client->request('GET', $url);
 
         if (200 !== $response->getStatusCode()) {
             $this->logger->error(
@@ -140,26 +143,17 @@ class Client
     }
 
     /**
-     * @throws PluginNotConfiguredException
+     * Used by AuthSupport to exchange a code for tokens
      */
-    private function getCredentials(): Credentials
+    public function exchangeCodeForToken(string $code, string $state): void
     {
-        if (!$this->config->isConfigured()) {
-            throw new PluginNotConfiguredException();
-        }
-        $apiKeys = $this->config->getApiKeys();
+        $client = $this->getClientForAuthorization($code, $state);
 
-        return new Credentials($apiKeys['client_id'], $apiKeys['client_secret']);
-    }
-
-    /**
-     * @throws IntegrationNotFoundException
-     */
-    private function getConfig(): ConnectionConfig
-    {
-        $this->connectionConfig->setIntegrationConfiguration($this->config->getIntegrationEntity());
-
-        return $this->connectionConfig;
+        // Force the client to make a call so that the Guzzle middleware will exchange the code for an access token
+        $client->request(
+            'GET',
+            $this->router->generate('helloworld_mocked_user_endpoint', [], UrlGeneratorInterface::ABSOLUTE_URL)
+        );
     }
 
     /**
@@ -174,10 +168,60 @@ class Client
             return $this->getMockedClient();
         }
 
+        // This is the real code that should be used in the plugin
         $credentials = $this->getCredentials();
         $config      = $this->getConfig();
 
         return $this->httpFactory->getClient($credentials, $config);
+    }
+
+    /**
+     * @throws IntegrationNotFoundException
+     * @throws InvalidCredentialsException
+     * @throws PluginNotConfiguredException
+     */
+    private function getClientForAuthorization(?string $code = null, ?string $state = null): ClientInterface
+    {
+        $credentials = $this->getCredentials($code, $state);
+        $config      = $this->getConfig();
+
+        return $this->httpFactory->getClient($credentials, $config);
+    }
+
+    /**
+     * @throws PluginNotConfiguredException
+     */
+    private function getCredentials(?string $code = null, ?string $state = null): Credentials
+    {
+        if (!$this->config->isConfigured()) {
+            throw new PluginNotConfiguredException();
+        }
+        $apiKeys = $this->config->getApiKeys();
+
+        $redirectUri = $this->router->generate(
+            'mautic_integration_public_callback',
+            ['integration' => HelloWorldIntegration::NAME],
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
+
+        // These are mocked just to demonstrate the Oauth2 flow but likely would be hard coded in the Credentials class unless it needs to be
+        // dynamically set.
+        $mockedAuthorizationUrl = $this->router->generate('helloworld_mocked_authorization_endpoint', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        $mockedTokenUrl         = $this->router->generate('helloworld_mocked_token_endpoint', [], UrlGeneratorInterface::ABSOLUTE_URL);
+
+        return new Credentials(
+            $mockedAuthorizationUrl, $mockedTokenUrl, $redirectUri, $apiKeys['client_id'], $apiKeys['client_secret'], $code, $state
+        );
+    }
+
+    /**
+     * @throws IntegrationNotFoundException
+     */
+    private function getConfig(): ConnectionConfig
+    {
+        $this->connectionConfig->setIntegrationConfiguration($this->config->getIntegrationEntity());
+
+        return $this->connectionConfig;
     }
 
     private function getMockedClient(): ClientInterface

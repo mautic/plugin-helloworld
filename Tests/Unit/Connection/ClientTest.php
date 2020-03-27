@@ -8,12 +8,13 @@ use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Mautic\IntegrationsBundle\Auth\Provider\Oauth2TwoLegged\HttpFactory;
+use Mautic\IntegrationsBundle\Auth\Provider\Oauth2ThreeLegged\HttpFactory;
 use Mautic\IntegrationsBundle\Exception\PluginNotConfiguredException;
 use MauticPlugin\HelloWorldBundle\Connection\Client;
 use MauticPlugin\HelloWorldBundle\Connection\Config as ConnectionConfig;
 use MauticPlugin\HelloWorldBundle\Integration\Config;
 use Monolog\Logger;
+use Symfony\Component\Routing\Router;
 
 class ClientTest extends \PHPUnit\Framework\TestCase
 {
@@ -38,6 +39,11 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     private $logger;
 
     /**
+     * @var Router|\PHPUnit\Framework\MockObject\MockObject
+     */
+    private $router;
+
+    /**
      * @var \MauticPlugin\HelloWorldBundle\Connection\Client
      */
     private $client;
@@ -56,7 +62,12 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
         $this->connectionConfig = $this->createMock(ConnectionConfig::class);
         $this->logger           = $this->createMock(Logger::class);
-        $this->client           = new Client($this->httpFactory, $this->config, $this->connectionConfig, $this->logger);
+
+        $this->router = $this->createMock(Router::class);
+        $this->router->method('generate')
+            ->willReturn('foobar');
+
+        $this->client = new Client($this->httpFactory, $this->config, $this->connectionConfig, $this->logger, $this->router);
     }
 
     public function testGetRequestIsPreparedAsExpectedAndObjectsAreReturned(): void

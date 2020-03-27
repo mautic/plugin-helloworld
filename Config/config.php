@@ -9,7 +9,23 @@ return [
     'author'      => 'Acquia, Inc.',
     'routes'      => [
         'main'   => [],
-        'public' => [],
+        'public' => [
+            'helloworld_mocked_authorization_endpoint' => [
+                'path'       => '/helloworld/mock/authorize',
+                'controller' => 'HelloWorldBundle:Mocks\Authorize:mock',
+                'method'     => 'GET',
+            ],
+            'helloworld_mocked_token_endpoint' => [
+                'path'       => '/helloworld/mock/token',
+                'controller' => 'HelloWorldBundle:Mocks\Token:mock',
+                'method'     => 'POST',
+            ],
+            'helloworld_mocked_user_endpoint' => [
+                'path'       => '/helloworld/mock/user',
+                'controller' => 'HelloWorldBundle:Mocks\User:mock',
+                'method'     => 'GET',
+            ],
+        ],
         'api'    => [],
     ],
     'menu'        => [],
@@ -33,10 +49,11 @@ return [
             'helloworld.connection.client' => [
                 'class'     => \MauticPlugin\HelloWorldBundle\Connection\Client::class,
                 'arguments' => [
-                    'mautic.integrations.auth_provider.oauth2twolegged',
+                    'mautic.integrations.auth_provider.oauth2threelegged',
                     'helloworld.config',
                     'helloworld.connection.config',
                     'monolog.logger.mautic',
+                    'router',
                 ],
             ],
         ],
@@ -96,6 +113,10 @@ return [
                 'class'     => \MauticPlugin\HelloWorldBundle\Integration\Support\ConfigSupport::class,
                 'arguments' => [
                     'helloworld.sync.repository.fields',
+                    'helloworld.config',
+                    'session',
+                    'router',
+                    'translator',
                 ],
                 'tags'      => [
                     'mautic.config_integration',
@@ -110,6 +131,49 @@ return [
                 ],
                 'tags'      => [
                     'mautic.sync_integration',
+                ],
+            ],
+            // Provides the means to exchange a code for a token for the oauth2 authorization code grant
+            'helloworld.integration.authorization' => [
+                'class'     => \MauticPlugin\HelloWorldBundle\Integration\Support\AuthSupport::class,
+                'arguments' => [
+                    'helloworld.connection.client',
+                    'helloworld.config',
+                    'session',
+                    'translator',
+                ],
+                'tags'      => [
+                    'mautic.authentication_integration',
+                ],
+            ],
+        ],
+        // These are all mocks to simply enable demonstration of the oauth2 flow
+        'controllers'  => [
+            'helloworld.integration.controller.mocked_authorization' => [
+                'class'     => \MauticPlugin\HelloWorldBundle\Controller\Mocks\AuthorizeController::class,
+                'methodCalls' => [
+                    'setContainer' => [
+                        '@service_container',
+                    ],
+                ],
+            ],
+            'helloworld.integration.controller.mocked_token' => [
+                'class'     => \MauticPlugin\HelloWorldBundle\Controller\Mocks\TokenController::class,
+                'methodCalls' => [
+                    'setContainer' => [
+                        '@service_container',
+                    ],
+                ],
+            ],
+            'helloworld.integration.controller.mocked_user' => [
+                'class'     => \MauticPlugin\HelloWorldBundle\Controller\Mocks\UserController::class,
+                'arguments' => [
+                    'helloworld.config',
+                ],
+                'methodCalls' => [
+                    'setContainer' => [
+                        '@service_container',
+                    ],
                 ],
             ],
         ],
