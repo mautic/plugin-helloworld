@@ -53,7 +53,7 @@ class Client
         $this->config           = $config;
         $this->connectionConfig = $connectionConfig;
         $this->logger           = $logger;
-        $this->router = $router;
+        $this->router           = $router;
     }
 
     /**
@@ -143,7 +143,7 @@ class Client
     }
 
     /**
-     * Used by AuthSupport to exchange a code for tokens
+     * Used by AuthSupport to exchange a code for tokens.
      */
     public function exchangeCodeForToken(string $code, string $state): void
     {

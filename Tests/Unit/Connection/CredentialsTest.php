@@ -10,7 +10,7 @@ class CredentialsTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetters(): void
     {
-        $clientId = 'foo';
+        $clientId     = 'foo';
         $clientSecret = 'bar';
 
         $credentials = new Credentials(

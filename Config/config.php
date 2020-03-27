@@ -150,7 +150,7 @@ return [
         // These are all mocks to simply enable demonstration of the oauth2 flow
         'controllers'  => [
             'helloworld.integration.controller.mocked_authorization' => [
-                'class'     => \MauticPlugin\HelloWorldBundle\Controller\Mocks\AuthorizeController::class,
+                'class'       => \MauticPlugin\HelloWorldBundle\Controller\Mocks\AuthorizeController::class,
                 'methodCalls' => [
                     'setContainer' => [
                         '@service_container',
@@ -158,7 +158,7 @@ return [
                 ],
             ],
             'helloworld.integration.controller.mocked_token' => [
-                'class'     => \MauticPlugin\HelloWorldBundle\Controller\Mocks\TokenController::class,
+                'class'       => \MauticPlugin\HelloWorldBundle\Controller\Mocks\TokenController::class,
                 'methodCalls' => [
                     'setContainer' => [
                         '@service_container',

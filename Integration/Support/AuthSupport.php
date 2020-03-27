@@ -66,7 +66,7 @@ class AuthSupport extends HelloWorldIntegration implements AuthenticationInterfa
     /**
      * @throws UnauthorizedException
      */
-    private function validateState(string $givenState)
+    private function validateState(string $givenState): void
     {
         // Fetch the state stored in ConfigSupport::getAuthorizationUrl()
         $expectedState = $this->session->get('helloworld.state');

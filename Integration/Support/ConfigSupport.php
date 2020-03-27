@@ -22,7 +22,6 @@ use MauticPlugin\HelloWorldBundle\Integration\Config;
 use MauticPlugin\HelloWorldBundle\Integration\HelloWorldIntegration;
 use MauticPlugin\HelloWorldBundle\Sync\Mapping\Field\FieldRepository;
 use MauticPlugin\HelloWorldBundle\Sync\Mapping\Manual\MappingManualFactory;
-use MauticPlugin\SalesforceBundle\Integration\Salesforce2Integration;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\Router;

@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace MauticPlugin\HelloWorldBundle\Controller\Mocks;
 
@@ -10,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * This controller returns a fake code to demonstrate the OAuth2 authorization code grant flow
+ * This controller returns a fake code to demonstrate the OAuth2 authorization code grant flow.
  */
 class AuthorizeController extends Controller
 {

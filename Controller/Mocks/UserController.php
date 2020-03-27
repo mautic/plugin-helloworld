@@ -1,17 +1,14 @@
 <?php
 
+declare(strict_types=1);
 
 namespace MauticPlugin\HelloWorldBundle\Controller\Mocks;
 
-
-use Mautic\IntegrationsBundle\Helper\IntegrationsHelper;
 use MauticPlugin\HelloWorldBundle\Integration\Config;
-use MauticPlugin\HelloWorldBundle\Integration\HelloWorldIntegration;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 /**
  * This is a mocked example of an API endpoint that does something super simple such as returning the details of the authorized session or to

@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
 namespace MauticPlugin\HelloWorldBundle\Controller\Mocks;
-
 
 use Mautic\CoreBundle\Helper\EncryptionHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
