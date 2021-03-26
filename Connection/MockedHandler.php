@@ -5,18 +5,21 @@ declare(strict_types=1);
 namespace MauticPlugin\HelloWorldBundle\Connection;
 
 use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\Promise;
+use GuzzleHttp\Promise\PromiseInterface;
+
 use function GuzzleHttp\Psr7\parse_query;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\RequestInterface;
 
 class MockedHandler extends MockHandler
 {
-    public function __invoke(RequestInterface $request, array $options)
+    public function __invoke(RequestInterface $request, array $options): PromiseInterface
     {
         return $this->getResponse($request);
     }
 
-    private function getResponse(RequestInterface $request): Response
+    private function getResponse(RequestInterface $request): PromiseInterface
     {
         $path   = $request->getUri()->getPath();
         $method = $request->getMethod();
@@ -59,7 +62,7 @@ class MockedHandler extends MockHandler
         throw new \Exception(sprintf('%s is not supported for method %s', $path, $method));
     }
 
-    private function getCitizens(int $page): Response
+    private function getCitizens(int $page): PromiseInterface
     {
         $results = 1 === $page
             ?
@@ -67,14 +70,14 @@ class MockedHandler extends MockHandler
             :
             '[]';
 
-        return new Response(
+        return Promise\Create::promiseFor(new Response(
             200,
             ['Content-Type' => 'application/json; charset=UTF-8'],
             $results
-        );
+        ));
     }
 
-    private function getWorlds(int $page): Response
+    private function getWorlds(int $page): PromiseInterface
     {
         $results = 1 === $page
             ?
@@ -82,14 +85,14 @@ class MockedHandler extends MockHandler
             :
             '[]';
 
-        return new Response(
+        return Promise\Create::promiseFor(new Response(
             200,
             ['Content-Type' => 'application/json; charset=UTF-8'],
             $results
-        );
+        ));
     }
 
-    private function getUpsertResponse(array $objects): Response
+    private function getUpsertResponse(array $objects): PromiseInterface
     {
         $results = [];
         foreach ($objects as $object) {
@@ -102,21 +105,21 @@ class MockedHandler extends MockHandler
             ];
         }
 
-        return new Response(
+        return Promise\Create::promiseFor(new Response(
             200,
             ['Content-Type' => 'application/json; charset=UTF-8'],
             json_encode($results)
-        );
+        ));
     }
 
-    private function getFields(string $object): Response
+    private function getFields(string $object): PromiseInterface
     {
         $results = file_get_contents(sprintf(__DIR__.'/../Tests/Unit/Connection/json/%s_fields.json', $object));
 
-        return new Response(
+        return Promise\Create::promiseFor(new Response(
             200,
             ['Content-Type' => 'application/json; charset=UTF-8'],
             $results
-        );
+        ));
     }
 }
