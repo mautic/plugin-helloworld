@@ -3,3 +3,5 @@
 !.htaccess
 !.gitkeep
 vendor/*
+composer.lock
+Tests/Coverage

@@ -8,6 +8,7 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Promise;
 use GuzzleHttp\Promise\PromiseInterface;
 
+use GuzzleHttp\Psr7\Query;
 use function GuzzleHttp\Psr7\parse_query;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\RequestInterface;
@@ -27,7 +28,7 @@ class MockedHandler extends MockHandler
         switch ($path) {
             case '/api/citizen':
                 if ('GET' === $method) {
-                    $page = (int) parse_query($request->getUri()->getQuery())['page'];
+                    $page = (int) Query::parse($request->getUri()->getQuery())['page'];
 
                     return $this->getCitizens($page);
                 }
@@ -45,7 +46,7 @@ class MockedHandler extends MockHandler
                 return $this->getFields('worlds');
             case '/api/world':
                 if ('GET' === $method) {
-                    $page = (int) parse_query($request->getUri()->getQuery())['page'];
+                    $page = (int) Query::parse($request->getUri()->getQuery())['page'];
 
                     return $this->getWorlds($page);
                 }

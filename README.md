@@ -26,3 +26,11 @@ This plugin also tries to exemplify code standards and expectations.
 * Code should be well covered with unit and/or functional tests
 * Code should meet CS standards (includes `symplify/easy-coding-standard` which can be ran with `composer fixcs`)
 * Code should pass phpstan standards (run `composer phpstan`)
+
+## Installation
+
+Inside your mautic directory, run the command
+
+```
+composer require mautic/helloworld-bundle
+```

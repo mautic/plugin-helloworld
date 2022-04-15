@@ -4,14 +4,28 @@
   "type": "mautic-plugin",
   "version": "1.0.1",
   "keywords": ["mautic","plugin","integration"],
+  "autoload": {
+    "psr-4": {"MauticPlugin\\HelloWorldBundle\\": ""}
+  },
   "require": {
-    "mautic/composer-plugin": "^1.0",
-    "php": "^7.2"
+    "php": ">=7.4, <8.1",
+    "guzzlehttp/psr7": "^2.0",
+    "mautic/core-lib": "^4.0"
+  },
+  "extra": {
+    "install-directory-name": "HelloWorldBundle"
   },
   "require-dev": {
-    "phpstan/phpstan": "^0.11.12",
-    "symplify/easy-coding-standard": "^6.0"
+    "phpstan/phpstan": "^0.12",
+    "symplify/easy-coding-standard": "^6.0",
+    "phpunit/phpunit": "^9.5"
   },
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/dennisameling/FOSOAuthServerBundle.git"
+    }
+  ],
   "scripts": {
     "test": [
       "@phpunit",
@@ -21,12 +35,17 @@
     "quicktest": [
       "@unit"
     ],
-    "phpunit": "../../bin/phpunit -d memory_limit=2048M --bootstrap ../../vendor/autoload.php --configuration phpunit.xml --fail-on-warning --testsuite=all",
-    "unit": "../../bin/phpunit -d memory_limit=2048M --bootstrap ../../vendor/autoload.php --configuration phpunit.xml --fail-on-warning --testsuite=unit",
-    "coverage": "../../bin/phpunit -d memory_limit=2048M --bootstrap ../../vendor/autoload.php --configuration phpunit.xml --fail-on-warning --testsuite=all --coverage-text --coverage-html=Tests/Coverage",
-    "phpstan": "vendor/bin/phpstan analyse --autoload-file=../../vendor/autoload.php --level=max Config Connection Entity Form Integration Migrations Sync Tests",
+    "phpunit": "vendor/bin/phpunit -d memory_limit=2048M --configuration phpunit.xml --fail-on-warning --testsuite=all",
+    "unit": "vendor/bin/phpunit -d memory_limit=2048M --configuration phpunit.xml --fail-on-warning --testsuite=unit",
+    "coverage": "vendor/bin/phpunit -d memory_limit=2048M --configuration phpunit.xml --fail-on-warning --testsuite=all --coverage-text --coverage-html=Tests/Coverage",
+    "phpstan": "vendor/bin/phpstan analyse",
     "csfixer": "vendor/bin/ecs check .",
     "fixcs": "vendor/bin/ecs check . --fix"
   },
-  "minimum-stability": "dev"
+  "minimum-stability": "dev",
+  "config": {
+    "allow-plugins": {
+      "symfony/flex": false
+    }
+  }
 }
