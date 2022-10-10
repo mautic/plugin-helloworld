@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace MauticPlugin\HelloWorldBundle\Integration\Support;
 
+use Mautic\IntegrationsBundle\DTO\Note;
+use Mautic\IntegrationsBundle\Integration\ConfigFormNotesTrait;
 use Mautic\IntegrationsBundle\Integration\DefaultConfigFormTrait;
 use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormAuthInterface;
 use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormFeatureSettingsInterface;
 use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormFeaturesInterface;
 use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormInterface;
+use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormNotesInterface;
 use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormSyncInterface;
 use Mautic\IntegrationsBundle\Mapping\MappedFieldInfoInterface;
 use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Company;
@@ -19,9 +22,10 @@ use MauticPlugin\HelloWorldBundle\Integration\HelloWorldIntegration;
 use MauticPlugin\HelloWorldBundle\Sync\Mapping\Field\FieldRepository;
 use MauticPlugin\HelloWorldBundle\Sync\Mapping\Manual\MappingManualFactory;
 
-class ConfigSupport extends HelloWorldIntegration implements ConfigFormInterface, ConfigFormAuthInterface, ConfigFormFeatureSettingsInterface, ConfigFormSyncInterface, ConfigFormFeaturesInterface
+class ConfigSupport extends HelloWorldIntegration implements ConfigFormInterface, ConfigFormAuthInterface, ConfigFormFeatureSettingsInterface, ConfigFormSyncInterface, ConfigFormFeaturesInterface, ConfigFormNotesInterface
 {
     use DefaultConfigFormTrait;
+    use ConfigFormNotesTrait;
 
     /**
      * @var FieldRepository
@@ -107,5 +111,20 @@ class ConfigSupport extends HelloWorldIntegration implements ConfigFormInterface
         return [
             ConfigFormFeaturesInterface::FEATURE_SYNC => 'mautic.integration.feature.sync',
         ];
+    }
+
+    public function getAuthorizationNote(): ?Note
+    {
+        return new Note('Additional information for Authorization tab.', Note::TYPE_INFO);
+    }
+
+    public function getFeaturesNote(): ?Note
+    {
+        return new Note('Alert for Features tab.', Note::TYPE_WARNING);
+    }
+
+    public function getFieldMappingNote(): ?Note
+    {
+        return new Note('Additional information for Field mapping tab.', Note::TYPE_INFO);
     }
 }
