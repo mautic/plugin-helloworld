@@ -115,16 +115,16 @@ class ConfigSupport extends HelloWorldIntegration implements ConfigFormInterface
 
     public function getAuthorizationNote(): ?Note
     {
-        return new Note('Additional information for Authorization tab.', Note::TYPE_INFO);
+        return new Note('helloworld.config.auth_tab', Note::TYPE_INFO);
     }
 
     public function getFeaturesNote(): ?Note
     {
-        return new Note('Alert for Features tab.', Note::TYPE_WARNING);
+        return new Note('helloworld.config.feat_tab', Note::TYPE_WARNING);
     }
 
     public function getFieldMappingNote(): ?Note
     {
-        return new Note('Additional information for Field mapping tab.', Note::TYPE_INFO);
+        return new Note('helloworld.config.field_mapping_tab', Note::TYPE_INFO);
     }
 }
