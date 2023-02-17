@@ -1,0 +1,115 @@
+name: Mautic Plugin tests
+
+on:
+  push:
+    branches:
+      - mautic-4
+      - '[0-9]+\.[0-9]+'
+  pull_request:
+
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+    name: PHPUnit tests
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: mautictest
+        ports:
+          - 3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+    - name: Checkout Mautic 4
+      uses: actions/checkout@v3
+      with:
+        repository: mautic/mautic
+        ref: 4.4
+
+    - name: Checkout this plugin
+      uses: actions/checkout@v3
+      with:
+        path: plugins/HelloWorldBundle
+
+    - name: Setup PHP, with composer and extensions
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: 8.0
+        ini-values: pcov.directory=., pcov.exclude="~tests|themes|vendor~"
+        extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, mysql, pdo_mysql
+        coverage: pcov
+
+    - name: add MySQL config file
+      run: |
+        mysqldump --version
+        mysqldump --print-defaults
+        cp .github/ci-files/.my.cnf ~/.my.cnf
+        mysqldump --print-defaults
+
+    - name: Set SYMFONY_ENV to test
+      run: |
+        echo "SYMFONY_ENV=test" >> $GITHUB_ENV
+        echo "MAUTIC_ENV=test" >> $GITHUB_ENV
+
+    - name: Get composer cache directory
+      id: composer-cache
+      run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+    - name: Cache composer dependencies
+      uses: actions/cache@v3
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: ${{ runner.os }}-composer-
+
+    - name: Install Composer dependencies
+      run: composer install
+
+    - name: Install Mautic
+      env:
+        DB_PORT: ${{ job.services.mysql.ports[3306] }}
+      run: |
+        cp ./.github/ci-files/local.php ./app/config/local.php
+        php bin/console mautic:install --force http://localhost
+
+    - name: Install Plugins
+      env:
+        DB_PORT: ${{ job.services.mysql.ports[3306] }}
+      run: php bin/console mautic:plugins:install --env=dev
+    
+    - name: Run Code Style check
+      run: bin/php-cs-fixer fix plugins/HelloWorldBundle --config=.php-cs-fixer.php -v --dry-run --show-progress=dots --diff
+    
+    - name: PHPSTAN
+      run: composer phpstan -- plugins/HelloWorldBundle
+
+    - name: Rector
+      run: composer rector -- --dry-run --no-progress-bar plugins/HelloWorldBundle
+
+    - name: Twig Lint
+      run: bin/console lint:twig plugins/HelloWorldBundle
+    
+    - name: Run PHPUNIT tests
+      env:
+        DB_PORT: ${{ job.services.mysql.ports[3306] }}
+      run: XDEBUG_MODE=coverage bin/phpunit -d memory_limit=1G --bootstrap vendor/autoload.php --configuration plugins/HelloWorldBundle/phpunit.xml --coverage-clover=coverage.xml --coverage-text
+
+    - name: Coverage report
+      run: cat coverage.xml
+
+    - name: Upload coverage report
+      uses: codecov/codecov-action@v3
+      with:
+        files: coverage.xml
+        token: ${{ secrets.CODECOV_TOKEN }}
+        fail_ci_if_error: true
+    
+    - name: Upload logs as artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: mautic-logs
+        path: var/logs/
+    
