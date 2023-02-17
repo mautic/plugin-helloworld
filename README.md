@@ -1,5 +1,5 @@
 # Hello World
-This is a sample plugin built for Mautic 3 using the integrations framework included in core that was originally based on the [Integrations plugin](https://github.com/mautic-inc/plugin-integrations).
+This is a sample plugin built for Mautic 4 using the integrations framework included in core that was originally based on the [Integrations plugin](https://github.com/mautic-inc/plugin-integrations).
 
 An example for Mautic 2 for the Oauth2 client credentials grant can be found [here](https://github.com/mautic-inc/plugin-helloworld/tree/mautic-2).
 An example for Mautic 3 for the Oauth2 authorization code grant can be found [here](https://github.com/mautic-inc/plugin-helloworld/tree/mautic-3-authorization-code-grant-example).
