@@ -11,18 +11,15 @@ use Mautic\PluginBundle\Entity\Integration;
 
 class Config
 {
-    /**
-     * @var IntegrationsHelper
-     */
-    private $integrationsHelper;
+    private IntegrationsHelper $integrationsHelper;
 
     /**
-     * @var array[]
+     * @var array<string,mixed[]>
      */
-    private $fieldDirections = [];
+    private array $fieldDirections = [];
 
     /**
-     * @var array[]
+     * @var array<string,mixed[]>
      */
     private $mappedFields = [];
 

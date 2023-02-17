@@ -10,6 +10,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class ConfigFeaturesType extends AbstractType
 {
+    /**
+     * @param mixed[]                                    $options
+     * @param FormBuilderInterface<FormBuilderInterface> $builder
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(

@@ -19,20 +19,9 @@ class MappingManualFactory
     public const CITIZEN_OBJECT = 'citizen';
     public const WORLD_OBJECT   = 'world';
 
-    /**
-     * @var FieldRepository
-     */
-    private $fieldRepository;
-
-    /**
-     * @var Config
-     */
-    private $config;
-
-    /**
-     * @var MappingManualDAO
-     */
-    private $manual;
+    private FieldRepository $fieldRepository;
+    private Config $config;
+    private ?MappingManualDAO $manual = null;
 
     public function __construct(FieldRepository $fieldRepository, Config $config)
     {
