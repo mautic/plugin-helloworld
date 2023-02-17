@@ -15,17 +15,11 @@ class HelloWorldIntegration extends BasicIntegration implements BasicInterface
     public const NAME         = 'helloworld';
     public const DISPLAY_NAME = 'Hello World';
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return self::NAME;
     }
 
-    /**
-     * @return string
-     */
     public function getDisplayName(): string
     {
         return self::DISPLAY_NAME;

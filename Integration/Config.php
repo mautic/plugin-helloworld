@@ -49,9 +49,6 @@ class Config
         return !empty($apiKeys['client_id']) && !empty($apiKeys['client_secret']);
     }
 
-    /**
-     * @return bool
-     */
     public function isAuthorized(): bool
     {
         $apiKeys = $this->getApiKeys();
@@ -101,8 +98,6 @@ class Config
 
     /**
      * Returns mapped fields that the user configured for this integration in the format of [field_alias => mautic_field_alias].
-     *
-     * @param string $objectName
      *
      * @return string[]
      */

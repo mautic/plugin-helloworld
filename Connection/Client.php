@@ -120,7 +120,7 @@ class Client
             $response = $client->request('GET', $url);
         } catch (AccessTokenRequestException $exception) {
             // Mock an access token since the authorization URL is non-existing
-            die($exception);
+            exit($exception);
         }
 
         if (200 !== $response->getStatusCode()) {

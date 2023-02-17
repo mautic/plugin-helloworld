@@ -7,7 +7,6 @@ namespace MauticPlugin\HelloWorldBundle\Connection;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Promise;
 use GuzzleHttp\Promise\PromiseInterface;
-
 use function GuzzleHttp\Psr7\parse_query;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\RequestInterface;

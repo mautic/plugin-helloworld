@@ -57,9 +57,7 @@ class ReportBuilder
     }
 
     /**
-     * @param int                $page
      * @param RequestObjectDAO[] $requestedObjects
-     * @param InputOptionsDAO    $options
      *
      * @throws GuzzleException
      * @throws IntegrationNotFoundException

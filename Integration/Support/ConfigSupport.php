@@ -30,8 +30,6 @@ class ConfigSupport extends HelloWorldIntegration implements ConfigFormInterface
 
     /**
      * ConfigSupport constructor.
-     *
-     * @param FieldRepository $fieldRepository
      */
     public function __construct(FieldRepository $fieldRepository)
     {
