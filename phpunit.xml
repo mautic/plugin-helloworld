@@ -1,35 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          backupGlobals="false"
-          backupStaticAttributes="false"
-          colors="true"
-          convertErrorsToExceptions="true"
-          convertNoticesToExceptions="true"
-          convertWarningsToExceptions="true"
-          processIsolation="false"
-          stopOnFailure="false"
-          bootstrap="autoload.php"
-          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
-  <coverage>
-    <include>
-      <directory suffix=".php">./</directory>
-    </include>
-  </coverage>
-  <testsuites>
-    <testsuite name="Plugin">
-      <directory>./</directory>
-    </testsuite>
-  </testsuites>
-  <php>
-    <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>
-    <env name="MAXMIND_LICENSE_KEY" value=""/>
-    <env name="KERNEL_CLASS" value="AppKernel" />
-    <const name="IS_PHPUNIT" value="true"/>
-    <const name="MAUTIC_ENV" value="test"/>
-    <server name="KERNEL_DIR" value="app"/>
-    <server name="APP_DEBUG" value="0"/>
-  </php>
-  <listeners>
-    <listener class="\Mautic\CoreBundle\Test\Listeners\CleanupListener" />
-  </listeners>
+
+<!-- http://www.phpunit.de/manual/current/en/appendixes.configuration.html -->
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/8.5/phpunit.xsd"
+    colors                      = "true"
+    failOnWarning               = "true"
+    bootstrap                   = "autoload.php" >
+
+    <testsuites>
+        <testsuite name="unit">
+            <directory>Tests/Unit</directory>
+        </testsuite>
+        <!-- <testsuite name="functional">
+            <directory>Tests/Functional</directory>
+        </testsuite> -->
+        <testsuite name="all">
+            <directory>Tests/Unit</directory>
+            <!-- <directory>Tests/Functional</directory> -->
+        </testsuite>
+    </testsuites>
+
+    <php>
+        <env name="KERNEL_CLASS" value="AppTestKernel" />
+        <server name="KERNEL_DIR" value="app" />
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak" />
+    </php>
+
+    <filter>
+        <whitelist>
+            <directory>*</directory>
+            <exclude>
+                <directory>Assets</directory>
+                <directory>Config</directory>
+                <directory>Tests</directory>
+                <directory>Translations</directory>
+                <directory>Views</directory>
+                <directory>vendor</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+
+    <listeners>
+        <listener class="\Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
+        <listener class="\Mautic\CoreBundle\Test\Listeners\CleanupListener" />
+    </listeners>
+
 </phpunit>
