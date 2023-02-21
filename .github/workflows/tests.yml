@@ -106,11 +106,9 @@ jobs:
     - name: Upload coverage report
       uses: codecov/codecov-action@v3
       with:
-        # files: coverage.xml
         token: ${{ secrets.CODECOV_TOKEN }}
         fail_ci_if_error: true
         working-directory: plugins/HelloWorldBundle
-        # root_dir: plugins/HelloWorldBundle
         verbose: true
     
     - name: Upload logs as artifacts
