@@ -3,12 +3,12 @@ name: Mautic Plugin tests
 on:
   push:
     branches:
-      - mautic-4
+      - mautic-4 # Main branch
       - '[0-9]+\.[0-9]+'
   pull_request:
 
 env:
-  PLUGIN_DIR: plugins/HelloWorldBundle
+  PLUGIN_DIR: plugins/HelloWorldBundle # Same as extra.install-directory-name in composer.json
 
 jobs:
   phpunit:
@@ -16,9 +16,9 @@ jobs:
     
     strategy:
       matrix:
-        php-versions: ['8.0']
+        php-versions: ['7.4', '8.0'] # The supported PHP versions
         db-types: ['mysql'] # can be: ['mysql', 'mariadb'] but not necessary for this plugin that does not add any DB schema
-        mautic-versions: ['4.3', '4.4']
+        mautic-versions: ['4.3', '4.4'] # The supported Mautic versions
   
     name: Tests on PHP ${{ matrix.php-versions }}, ${{ matrix.db-types }}, Mautic ${{ matrix.mautic-versions }}
 
@@ -115,6 +115,7 @@ jobs:
       run: XDEBUG_MODE=coverage APP_DEBUG=0 php -dpcov.enabled=1 -dpcov.directory=. -dpcov.exclude="~tests|themes|vendor~" bin/phpunit -d memory_limit=1G --bootstrap vendor/autoload.php --configuration ${{ env.PLUGIN_DIR }}/phpunit.xml --coverage-clover=${{ env.PLUGIN_DIR }}/coverage.xml --coverage-text
 
     - name: Upload coverage report
+      if: ${{ matrix.php-versions == '8.0' && matrix.db-types == 'mysql' && matrix.mautic-versions == '4.4' }} # upload just once, change for your matrix
       uses: codecov/codecov-action@v3
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
