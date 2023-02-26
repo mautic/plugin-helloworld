@@ -7,6 +7,9 @@ on:
       - '[0-9]+\.[0-9]+'
   pull_request:
 
+env:
+  PLUGIN_DIR: plugins/HelloWorldBundle
+
 jobs:
   phpunit:
     runs-on: ubuntu-latest
@@ -32,7 +35,7 @@ jobs:
     - name: Checkout this plugin
       uses: actions/checkout@v3
       with:
-        path: plugins/HelloWorldBundle
+        path: ${{ env.PLUGIN_DIR }}
 
     - name: Setup PHP, with composer and extensions
       uses: shivammathur/setup-php@v2
@@ -81,28 +84,28 @@ jobs:
       run: php bin/console mautic:plugins:install --env=dev
     
     - name: Run Code Style check
-      run: bin/php-cs-fixer fix plugins/HelloWorldBundle --config=.php-cs-fixer.php -v --dry-run --show-progress=dots --diff
+      run: bin/php-cs-fixer fix ${{ env.PLUGIN_DIR }} --config=.php-cs-fixer.php -v --dry-run --show-progress=dots --diff
     
     - name: PHPSTAN
-      run: composer phpstan -- plugins/HelloWorldBundle
+      run: composer phpstan -- ${{ env.PLUGIN_DIR }}
 
     - name: Rector
-      run: composer rector -- --dry-run --no-progress-bar plugins/HelloWorldBundle
+      run: composer rector -- --dry-run --no-progress-bar ${{ env.PLUGIN_DIR }}
 
     - name: Twig Lint
-      run: bin/console lint:twig plugins/HelloWorldBundle
+      run: bin/console lint:twig ${{ env.PLUGIN_DIR }}
     
     - name: Run PHPUNIT tests
       env:
         DB_PORT: ${{ job.services.mysql.ports[3306] }}
-      run: XDEBUG_MODE=coverage APP_DEBUG=0 php -dpcov.enabled=1 -dpcov.directory=. -dpcov.exclude="~tests|themes|vendor~" bin/phpunit -d memory_limit=1G --bootstrap vendor/autoload.php --configuration plugins/HelloWorldBundle/phpunit.xml --coverage-clover=plugins/HelloWorldBundle/coverage.xml --coverage-text
+      run: XDEBUG_MODE=coverage APP_DEBUG=0 php -dpcov.enabled=1 -dpcov.directory=. -dpcov.exclude="~tests|themes|vendor~" bin/phpunit -d memory_limit=1G --bootstrap vendor/autoload.php --configuration ${{ env.PLUGIN_DIR }}/phpunit.xml --coverage-clover=${{ env.PLUGIN_DIR }}/coverage.xml --coverage-text
 
     - name: Upload coverage report
       uses: codecov/codecov-action@v3
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         fail_ci_if_error: true
-        working-directory: plugins/HelloWorldBundle
+        working-directory: ${{ env.PLUGIN_DIR }}
         verbose: true
     
     - name: Upload logs as artifacts
