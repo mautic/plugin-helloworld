@@ -97,12 +97,6 @@ jobs:
         DB_PORT: ${{ job.services.mysql.ports[3306] }}
       run: XDEBUG_MODE=coverage APP_DEBUG=0 php -dpcov.enabled=1 -dpcov.directory=. -dpcov.exclude="~tests|themes|vendor~" bin/phpunit -d memory_limit=1G --bootstrap vendor/autoload.php --configuration plugins/HelloWorldBundle/phpunit.xml --coverage-clover=plugins/HelloWorldBundle/coverage.xml --coverage-text
 
-    - name: pwd
-      run: pwd
-
-    - name: Coverage report
-      run: cat plugins/HelloWorldBundle/coverage.xml
-
     - name: Upload coverage report
       uses: codecov/codecov-action@v3
       with:
