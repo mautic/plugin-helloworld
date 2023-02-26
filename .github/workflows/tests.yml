@@ -13,24 +13,38 @@ env:
 jobs:
   phpunit:
     runs-on: ubuntu-latest
-    name: PHPUnit tests
+    
+    strategy:
+      matrix:
+        php-versions: ['8.0']
+        db-types: ['mysql'] # can be: ['mysql', 'mariadb'] but not necessary for this plugin that does not add any DB schema
+        mautic-versions: ['4.3', '4.4']
+  
+    name: Tests on PHP ${{ matrix.php-versions }}, ${{ matrix.db-types }}, Mautic ${{ matrix.mautic-versions }}
 
     services:
-      mysql:
-        image: mysql:5.7
+      database:
+        image: ${{ matrix.db-types == 'mysql' && 'mysql:5.7' || 'mariadb:10.3' }}
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_DATABASE: mautictest
         ports:
           - 3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        options: >-
+          --shm-size=2gb
+          --name=${{ matrix.db-types }}
+          --tmpfs=/var/lib/mysql
+          --health-cmd="mysqladmin ping" 
+          --health-interval=10s 
+          --health-timeout=5s 
+          --health-retries=3
 
     steps:
     - name: Checkout Mautic 4
       uses: actions/checkout@v3
       with:
         repository: mautic/mautic
-        ref: 4.4
+        ref: ${{ matrix.mautic-versions }}
 
     - name: Checkout this plugin
       uses: actions/checkout@v3
@@ -40,7 +54,7 @@ jobs:
     - name: Setup PHP, with composer and extensions
       uses: shivammathur/setup-php@v2
       with:
-        php-version: 8.0
+        php-version: ${{ matrix.php-versions }}
         ini-values: -dpcov.enabled=0, pcov.directory=."
         extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, mysql, pdo_mysql
         coverage: pcov
@@ -73,14 +87,14 @@ jobs:
 
     - name: Install Mautic
       env:
-        DB_PORT: ${{ job.services.mysql.ports[3306] }}
+        DB_PORT: ${{ job.services.database.ports[3306] }}
       run: |
         cp ./.github/ci-files/local.php ./app/config/local.php
         php bin/console mautic:install --force http://localhost
 
     - name: Install Plugins
       env:
-        DB_PORT: ${{ job.services.mysql.ports[3306] }}
+        DB_PORT: ${{ job.services.database.ports[3306] }}
       run: php bin/console mautic:plugins:install --env=dev
     
     - name: Run Code Style check
@@ -97,7 +111,7 @@ jobs:
     
     - name: Run PHPUNIT tests
       env:
-        DB_PORT: ${{ job.services.mysql.ports[3306] }}
+        DB_PORT: ${{ job.services.database.ports[3306] }}
       run: XDEBUG_MODE=coverage APP_DEBUG=0 php -dpcov.enabled=1 -dpcov.directory=. -dpcov.exclude="~tests|themes|vendor~" bin/phpunit -d memory_limit=1G --bootstrap vendor/autoload.php --configuration ${{ env.PLUGIN_DIR }}/phpunit.xml --coverage-clover=${{ env.PLUGIN_DIR }}/coverage.xml --coverage-text
 
     - name: Upload coverage report
