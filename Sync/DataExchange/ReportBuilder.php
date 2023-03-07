@@ -57,9 +57,7 @@ class ReportBuilder
     }
 
     /**
-     * @param int                $page
      * @param RequestObjectDAO[] $requestedObjects
-     * @param InputOptionsDAO    $options
      *
      * @throws GuzzleException
      * @throws IntegrationNotFoundException
@@ -91,6 +89,9 @@ class ReportBuilder
         return $this->report;
     }
 
+    /**
+     * @param mixed[] $changeList
+     */
     private function addModifiedItems(string $objectName, array $changeList): void
     {
         // Get the the field list to know what the field types are

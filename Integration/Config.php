@@ -11,18 +11,15 @@ use Mautic\PluginBundle\Entity\Integration;
 
 class Config
 {
-    /**
-     * @var IntegrationsHelper
-     */
-    private $integrationsHelper;
+    private IntegrationsHelper $integrationsHelper;
 
     /**
-     * @var array[]
+     * @var array<string,mixed[]>
      */
-    private $fieldDirections = [];
+    private array $fieldDirections = [];
 
     /**
-     * @var array[]
+     * @var array<string,mixed[]>
      */
     private $mappedFields = [];
 
@@ -49,9 +46,6 @@ class Config
         return !empty($apiKeys['client_id']) && !empty($apiKeys['client_secret']);
     }
 
-    /**
-     * @return bool
-     */
     public function isAuthorized(): bool
     {
         $apiKeys = $this->getApiKeys();
@@ -101,8 +95,6 @@ class Config
 
     /**
      * Returns mapped fields that the user configured for this integration in the format of [field_alias => mautic_field_alias].
-     *
-     * @param string $objectName
      *
      * @return string[]
      */

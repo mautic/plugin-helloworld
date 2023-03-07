@@ -12,6 +12,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ConfigAuthType extends AbstractType
 {
+    /**
+     * @param mixed[]                                    $options
+     * @param FormBuilderInterface<FormBuilderInterface> $builder
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $clientSecret   = null;

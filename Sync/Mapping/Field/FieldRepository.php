@@ -9,20 +9,13 @@ use MauticPlugin\HelloWorldBundle\Connection\Client;
 
 class FieldRepository
 {
-    /**
-     * @var CacheStorageHelper
-     */
-    private $cacheProvider;
+    private CacheStorageHelper $cacheProvider;
+    private Client $client;
 
     /**
-     * @var Client
+     * @var array<string,mixed[]>
      */
-    private $client;
-
-    /**
-     * @var array
-     */
-    private $apiFields = [];
+    private array $apiFields = [];
 
     public function __construct(CacheStorageHelper $cacheProvider, Client $client)
     {
@@ -92,6 +85,8 @@ class FieldRepository
 
     /**
      * Used by the config form to fetch the fields fresh from the API.
+     *
+     * @return array<string,mixed[]>
      */
     private function getFieldsFromApi(string $objectName): array
     {
@@ -116,6 +111,8 @@ class FieldRepository
     }
 
     /**
+     * @param array<string,mixed> $fields
+     *
      * @return Field[]
      */
     private function hydrateFieldObjects(array $fields): array

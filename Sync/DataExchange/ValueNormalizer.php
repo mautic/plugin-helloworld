@@ -23,6 +23,10 @@ class ValueNormalizer implements ValueNormalizerInterface
         }
     }
 
+    /**
+     * @param mixed  $value
+     * @param string $type
+     */
     public function normalizeForMautic($value, $type): NormalizedValueDAO
     {
         switch ($type) {

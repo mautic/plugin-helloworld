@@ -22,6 +22,9 @@ class OrderExecutionerTest extends \PHPUnit\Framework\TestCase
      */
     private $client;
 
+    /**
+     * @var array<array<int,mixed>>
+     */
     private $mauticObjects = [
         // Correlates with citizens_upsert.json and citizens_upsert_responses.json
         Contact::NAME => [

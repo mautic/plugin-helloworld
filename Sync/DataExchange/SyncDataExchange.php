@@ -23,9 +23,6 @@ class SyncDataExchange implements SyncDataExchangeInterface
 
     /**
      * SyncDataExchange constructor.
-     *
-     * @param ReportBuilder    $reportBuilder
-     * @param OrderExecutioner $orderExecutioner
      */
     public function __construct(ReportBuilder $reportBuilder, OrderExecutioner $orderExecutioner)
     {
