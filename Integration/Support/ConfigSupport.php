@@ -23,16 +23,8 @@ class ConfigSupport extends HelloWorldIntegration implements ConfigFormInterface
 {
     use DefaultConfigFormTrait;
 
-    /**
-     * @var FieldRepository
-     */
-    private $fieldRepository;
+    private FieldRepository $fieldRepository;
 
-    /**
-     * ConfigSupport constructor.
-     *
-     * @param FieldRepository $fieldRepository
-     */
     public function __construct(FieldRepository $fieldRepository)
     {
         $this->fieldRepository = $fieldRepository;
@@ -48,6 +40,9 @@ class ConfigSupport extends HelloWorldIntegration implements ConfigFormInterface
         return ConfigFeaturesType::class;
     }
 
+    /**
+     * @return array<string,string>
+     */
     public function getSyncConfigObjects(): array
     {
         return [
@@ -56,6 +51,9 @@ class ConfigSupport extends HelloWorldIntegration implements ConfigFormInterface
         ];
     }
 
+    /**
+     * @return array<string,string>
+     */
     public function getSyncMappedObjects(): array
     {
         return [
@@ -77,7 +75,7 @@ class ConfigSupport extends HelloWorldIntegration implements ConfigFormInterface
      */
     public function getOptionalFieldsForMapping(string $objectName): array
     {
-        $this->fieldRepository->getOptionalFieldsForMapping($objectName);
+        return $this->fieldRepository->getOptionalFieldsForMapping($objectName);
     }
 
     /**
@@ -102,6 +100,9 @@ class ConfigSupport extends HelloWorldIntegration implements ConfigFormInterface
         );
     }
 
+    /**
+     * @return array<string,string>
+     */
     public function getSupportedFeatures(): array
     {
         return [

@@ -10,7 +10,7 @@ use Mautic\IntegrationsBundle\Migration\AbstractMigration;
 
 class Version_1_0_1 extends AbstractMigration
 {
-    private $table = 'hello_world';
+    private string $table = 'hello_world';
 
     protected function isApplicable(Schema $schema): bool
     {

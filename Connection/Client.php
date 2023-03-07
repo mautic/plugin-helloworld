@@ -7,6 +7,7 @@ namespace MauticPlugin\HelloWorldBundle\Connection;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
+use kamermans\OAuth2\Exception\AccessTokenRequestException;
 use Mautic\IntegrationsBundle\Auth\Provider\Oauth2TwoLegged\HttpFactory;
 use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
 use Mautic\IntegrationsBundle\Exception\InvalidCredentialsException;
@@ -18,27 +19,11 @@ use Monolog\Logger;
 
 class Client
 {
-    private $apiUrl = 'https://hello.world/api';
-
-    /**
-     * @var HttpFactory
-     */
-    private $httpFactory;
-
-    /**
-     * @var Config
-     */
-    private $config;
-
-    /**
-     * @var ConnectionConfig
-     */
-    private $connectionConfig;
-
-    /**
-     * @var Logger
-     */
-    private $logger;
+    private string $apiUrl = 'https://hello.world/api';
+    private HttpFactory $httpFactory;
+    private Config $config;
+    private ConnectionConfig $connectionConfig;
+    private Logger $logger;
 
     public function __construct(HttpFactory $httpFactory, Config $config, ConnectionConfig $connectionConfig, Logger $logger)
     {
@@ -53,6 +38,8 @@ class Client
      * @throws PluginNotConfiguredException
      * @throws IntegrationNotFoundException
      * @throws InvalidCredentialsException
+     *
+     * @return mixed[]
      */
     public function get(string $objectName, ?\DateTimeInterface $startDateTime, ?\DateTimeInterface $endDateTime, int $page = 1): array
     {
@@ -86,6 +73,11 @@ class Client
         return json_decode($response->getBody()->getContents(), true);
     }
 
+    /**
+     * @param mixed[] $data
+     *
+     * @return mixed[]
+     */
     public function upsert(string $objectName, array $data): array
     {
         $client  = $this->getClient();
@@ -111,6 +103,9 @@ class Client
         return json_decode($response->getBody()->getContents(), true);
     }
 
+    /**
+     * @return mixed[]
+     */
     public function getFields(string $objectName): array
     {
         $client = $this->getClient();
@@ -120,7 +115,7 @@ class Client
             $response = $client->request('GET', $url);
         } catch (AccessTokenRequestException $exception) {
             // Mock an access token since the authorization URL is non-existing
-            die($exception);
+            exit($exception);
         }
 
         if (200 !== $response->getStatusCode()) {

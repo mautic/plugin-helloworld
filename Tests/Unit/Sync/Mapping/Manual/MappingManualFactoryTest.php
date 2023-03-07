@@ -19,10 +19,7 @@ class MappingManualFactoryTest extends \PHPUnit\Framework\TestCase
      */
     private $client;
 
-    /**
-     * @var FieldRepository
-     */
-    private $fieldRepository;
+    private FieldRepository $fieldRepository;
 
     /**
      * @var CacheStorageHelper|\PHPUnit\Framework\MockObject\MockObject
@@ -34,10 +31,7 @@ class MappingManualFactoryTest extends \PHPUnit\Framework\TestCase
      */
     private $config;
 
-    /**
-     * @var MappingManualFactory
-     */
-    private $mappingManualFactory;
+    private MappingManualFactory $mappingManualFactory;
 
     protected function setUp(): void
     {

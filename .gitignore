@@ -1,5 +1,2 @@
-.*
 !.gitignore
-!.htaccess
 !.gitkeep
-vendor/*

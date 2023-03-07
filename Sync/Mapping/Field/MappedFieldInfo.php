@@ -8,7 +8,7 @@ use Mautic\IntegrationsBundle\Mapping\MappedFieldInfoInterface;
 
 class MappedFieldInfo implements MappedFieldInfoInterface
 {
-    private $field;
+    private Field $field;
 
     public function __construct(Field $field)
     {

@@ -28,7 +28,7 @@ class OrderExecutioner
     private $order;
 
     /**
-     * @var array[]
+     * @var array<string,mixed[]>
      */
     private $mappedObjects = [
         MappingManualFactory::CITIZEN_OBJECT => [],
@@ -86,6 +86,9 @@ class OrderExecutioner
         $this->processResponse($objectName, $response);
     }
 
+    /**
+     * @return array<string,mixed>
+     */
     private function prepareFieldPayload(ObjectChangeDAO $objectChangeDAO): array
     {
         if ($id = $objectChangeDAO->getObjectId()) {
@@ -119,6 +122,9 @@ class OrderExecutioner
         return $datum;
     }
 
+    /**
+     * @param mixed[] $response
+     */
     private function processResponse(string $objectName, array $response): void
     {
         foreach ($response as $itemResponse) {

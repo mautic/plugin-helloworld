@@ -5,30 +5,19 @@ declare(strict_types=1);
 namespace MauticPlugin\HelloWorldBundle\Entity;
 
 use Doctrine\DBAL\Types\Type;
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\ClassMetadata;
 use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
 
 class World
 {
-    /**
-     * @var int
-     */
-    private $id;
+    private ?int $id;
+    private ?string $world;
+    private ?int $isEnabled;
 
     /**
-     * @var string
+     * @param ClassMetadata<self> $metadata
      */
-    private $world;
-
-    /**
-     * @var int
-     */
-    private $isEnabled;
-
-    /**
-     * @param ORM\ClassMetadata $metadata
-     */
-    public static function loadMetadata(ORM\ClassMetadata $metadata): void
+    public static function loadMetadata(ClassMetadata $metadata): void
     {
         $builder = new ClassMetadataBuilder($metadata);
 
