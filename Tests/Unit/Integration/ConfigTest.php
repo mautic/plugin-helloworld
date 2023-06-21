@@ -12,16 +12,17 @@ use Mautic\PluginBundle\Entity\Integration;
 use MauticPlugin\HelloWorldBundle\Integration\Config;
 use MauticPlugin\HelloWorldBundle\Integration\HelloWorldIntegration;
 use MauticPlugin\HelloWorldBundle\Sync\Mapping\Manual\MappingManualFactory;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class ConfigTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var Integration|\PHPUnit\Framework\MockObject\MockObject
+     * @var Integration|MockObject
      */
     private $integration;
 
     /**
-     * @var IntegrationsHelper|\PHPUnit\Framework\MockObject\MockObject
+     * @var IntegrationsHelper|MockObject
      */
     private $integrationsHelper;
 
