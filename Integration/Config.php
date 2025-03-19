@@ -90,7 +90,7 @@ class Config
             return $this->getMappedFieldsDirections($objectName)[$alias];
         }
 
-        throw new InvalidValueException("There is no field direction for '{$objectName}' field '${alias}'.");
+        throw new InvalidValueException("There is no field direction for '{$objectName}' field '{$alias}'.");
     }
 
     /**

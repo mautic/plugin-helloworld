@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MauticPlugin\HelloWorldBundle\Entity;
 
-use Doctrine\DBAL\Types\Type;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
 
@@ -29,11 +29,11 @@ class World
         $builder->addId();
 
         $builder
-            ->createField('world', Type::STRING)
+            ->createField('world', Types::STRING)
             ->build();
 
         $builder
-            ->createField('isEnabled', Type::BOOLEAN)
+            ->createField('isEnabled', Types::BOOLEAN)
             ->columnName('is_enabled')
             ->build();
     }
