@@ -7,7 +7,7 @@
   "keywords": ["mautic","plugin","integration"],
   "minimum-stability": "dev",
   "require": {
-    "php": ">=8.0.0",
+    "php": ">=8.1.0",
     "mautic/core-lib": "^6.0"
   },
   "extra": {
